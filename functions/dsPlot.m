@@ -30,6 +30,8 @@ function handles = dsPlot(data,varargin)
 %     'fig_handle'      : Parent figure handle to plot in.
 %     'ax_handle'       : Axes handle to plot in. If lock_gca, defaults to gca.
 %     'suppress_textstring' : Turns off plotting of text inside plots
+%     'MUA_only_flag'   : only calculate power for MUA averaged signal,
+%                         not individual SUA signals (default: 0)
 %     - NOTE: analysis options are available depending on plot_type
 %       - see see dsCalcFR options for plot_type 'rastergram' or 'rates'
 %       - see dsCalcPower options for plot_type 'power'
@@ -184,6 +186,7 @@ options=dsCheckOptions(varargin,{...
   'ax_handle',[],[],...
   'auto_gen_test_data_flag',0,{0,1},...
   'suppress_textstring',0,{0,1},...
+  'MUA_only_flag',0',{0,1},...
   },false);
 
 %% auto_gen_test_data_flag argin
@@ -340,11 +343,12 @@ switch options.plot_type
   case 'waveform_averaged'   % plot VARIABLE
     xdata=time;
     xlab='time (ms)'; % x-axis label
-  case 'power'      % plot VARIABLE_Power_SUA.Pxx
-    if any(cellfun(@isempty,regexp(var_fields,'.*_Power_SUA$')))
+  case 'power'      % plot VARIABLE_Power_MUA.Pxx
+    % AES: there should always be MUA data, but not necessarily SUA data present
+    if any(cellfun(@isempty,regexp(var_fields,'.*_Power_MUA$')))
       data=dsCalcPower(data,varargin{:});
     end
-    xdata=data(1).([var_fields{1} '_Power_SUA']).frequency;
+    xdata=data(1).([var_fields{1} '_Power_MUA']).frequency;
     xlab='frequency (Hz)'; % x-axis label
     % set default x-limits for power spectrum
     if isempty(options.xlim)
@@ -403,7 +407,11 @@ MTPP = options.max_num_overlaid; % max traces per plot
 
 % how many plots:
 if num_sims==1 && num_pops==1 && num_vars==1 && ~lock_gca
-  num_fig_sets=1; num_figs=ceil(pop_sizes/MRPF); num_rows=min(pop_sizes,MRPF);
+  if options.MUA_only_flag
+    num_fig_sets=1; num_figs=ceil(pop_sizes/MRPF); num_rows=1;
+  else
+    num_fig_sets=1; num_figs=ceil(pop_sizes/MRPF); num_rows=min(pop_sizes,MRPF);
+  end
 elseif num_sims==1 && num_pops==1 && num_vars==1 && lock_gca
   num_fig_sets=1; num_figs=1; num_rows=1;
 elseif num_sims==1 && num_pops==1 && num_vars>1
@@ -544,12 +552,18 @@ for iFigset = 1:num_fig_sets
             case 'waveform'
               dat=data(sim_index).(var)(:,row);
             case 'power'
-              AuxData=data(sim_index).([var '_Power_MUA']).Pxx;
               vlines=data(sim_index).([var '_Power_MUA']).PeakFreq;
-              AuxDataName={'MUA Power'};
-              var=[var '_Power_SUA'];
-              dat=data(sim_index).(var).Pxx(:,row);
-              legend_strings={'SUA','MUA'};
+              if options.MUA_only_flag
+                dat=data(sim_index).([var '_Power_MUA']).Pxx;
+                legend_strings={'MUA'};
+                var=[var '_Power_MUA'];
+              else
+                AuxData=data(sim_index).([var '_Power_MUA']).Pxx;
+                AuxDataName={'MUA Power'};
+                var=[var '_Power_SUA'];
+                dat=data(sim_index).(var).Pxx(:,row);
+                legend_strings={'SUA','MUA'};
+              end
             case {'rastergram','raster'}
               set_name=regexp(var,'^([a-zA-Z0-9]+)_','tokens','once');
               allspikes{1}{1}=data(sim_index).([var '_spike_times']){row};
@@ -576,11 +590,16 @@ for iFigset = 1:num_fig_sets
             case 'waveform'
               dat=data(sim_index).(var);
             case 'power'
-              AuxData=data(sim_index).([var '_Power_MUA']).Pxx;
               vlines=data(sim_index).([var '_Power_MUA']).PeakFreq;
-              AuxDataName={'MUA Power'};
-              var=[var '_Power_SUA'];
-              dat=data(sim_index).(var).Pxx;
+              if options.MUA_only_flag
+                dat=data(sim_index).([var '_Power_MUA']).Pxx;
+                var=[var '_Power_MUA'];
+              else
+                AuxData=data(sim_index).([var '_Power_MUA']).Pxx;
+                AuxDataName={'MUA Power'};
+                var=[var '_Power_SUA'];
+                dat=data(sim_index).(var).Pxx;
+              end
             case {'rastergram','raster'}
               set_name=regexp(var,'^([a-zA-Z0-9]+)_','tokens','once');
               allspikes{1}=data(sim_index).([var '_spike_times']);
@@ -603,11 +622,16 @@ for iFigset = 1:num_fig_sets
             case 'waveform'
               dat=data(sim_index).(var);
             case 'power'
-              AuxData=data(sim_index).([var '_Power_MUA']).Pxx;
               vlines=data(sim_index).([var '_Power_MUA']).PeakFreq;
-              AuxDataName={'MUA Power'};
-              var=[var '_Power_SUA'];
-              dat=data(sim_index).(var).Pxx;
+              if options.MUA_only_flag
+                dat=data(sim_index).([var '_Power_MUA']).Pxx;
+                var=[var '_Power_MUA'];
+              else
+                AuxData=data(sim_index).([var '_Power_MUA']).Pxx;
+                AuxDataName={'MUA Power'};
+                var=[var '_Power_SUA'];
+                dat=data(sim_index).(var).Pxx;
+              end
             case {'rastergram','raster'}
               set_name=regexp(var,'^([a-zA-Z0-9]+)_','tokens','once');
               allspikes{1}=data(sim_index).([var '_spike_times']);
@@ -631,11 +655,16 @@ for iFigset = 1:num_fig_sets
             case 'waveform'
               dat=data(sim_index).(var);
             case 'power'
-              AuxData=data(sim_index).([var '_Power_MUA']).Pxx;
               vlines=data(sim_index).([var '_Power_MUA']).PeakFreq;
-              AuxDataName={'MUA Power'};
-              var=[var '_Power_SUA'];
-              dat=data(sim_index).(var).Pxx;
+              if options.MUA_only_flag
+                dat=data(sim_index).([var '_Power_MUA']).Pxx;
+                var=[var '_Power_MUA'];
+              else
+                AuxData=data(sim_index).([var '_Power_MUA']).Pxx;
+                AuxDataName={'MUA Power'};
+                var=[var '_Power_SUA'];
+                dat=data(sim_index).(var).Pxx;
+              end
             case {'rastergram','raster'}
               set_name=regexp(var,'^([a-zA-Z0-9]+)_','tokens','once');
               allspikes{1}=data(sim_index).([var '_spike_times']);
@@ -672,25 +701,34 @@ for iFigset = 1:num_fig_sets
               
               var=['<' variables{1} '>'];
             case 'power'
-              dat=nan(length(xdata),num_pops);
-              AuxData=nan(length(xdata),num_pops);
-              AuxDataName={}; vlines=[];
-              
-              if ~strcmp(reportUI,'matlab') && exist('nanmean') ~= 2 % 'nanmean is not in Octave's path
-                try
-                  pkg load statistics; % trying to load octave forge 'statistics' package before using nanmean function
-                catch
-                  error('nanmean function is needed, please install the statistics package from Octave Forge');
+              if options.MUA_only_flag
+                dat=nan(length(xdata),num_pops);
+                for k=1:num_pops
+                  dat(:,k)=data(sim_index).([var_fields{k} '_Power_MUA']).Pxx;
+                  vlines(end+1)=data(sim_index).([var_fields{k} '_Power_MUA']).PeakFreq;
+                  var=['<' variables{1} '_Power_MUA>'];
                 end
+              else
+                dat=nan(length(xdata),num_pops);
+                AuxData=nan(length(xdata),num_pops);
+                AuxDataName={}; vlines=[];
+                
+                if ~strcmp(reportUI,'matlab') && exist('nanmean') ~= 2 % 'nanmean is not in Octave's path
+                  try
+                    pkg load statistics; % trying to load octave forge 'statistics' package before using nanmean function
+                  catch
+                    error('nanmean function is needed, please install the statistics package from Octave Forge');
+                  end
+                end
+                
+                for k=1:num_pops
+                  dat(:,k)=nanmean(data(sim_index).([var_fields{k} '_Power_SUA']).Pxx,2);
+                  AuxData(:,k)=data(sim_index).([var_fields{k} '_Power_MUA']).Pxx;
+                  AuxDataName{end+1}=strrep([var_fields{k} '_Power_MUA'],'_','\_');
+                  vlines(end+1)=data(sim_index).([var_fields{k} '_Power_MUA']).PeakFreq;
+                end
+                var=['<' variables{1} '_Power_SUA>'];
               end
-              
-              for k=1:num_pops
-                dat(:,k)=nanmean(data(sim_index).([var_fields{k} '_Power_SUA']).Pxx,2);
-                AuxData(:,k)=data(sim_index).([var_fields{k} '_Power_MUA']).Pxx;
-                AuxDataName{end+1}=strrep([var_fields{k} '_Power_MUA'],'_','\_');
-                vlines(end+1)=data(sim_index).([var_fields{k} '_Power_MUA']).PeakFreq;
-              end
-              var=['<' variables{1} '_Power_SUA>'];
             case {'rastergram','raster'}
               set_name={};
               
@@ -715,11 +753,16 @@ for iFigset = 1:num_fig_sets
             case 'waveform'
               dat=data(sim_index).(var);
             case 'power'
-              AuxData=data(sim_index).([var '_Power_MUA']).Pxx;
               vlines=data(sim_index).([var '_Power_MUA']).PeakFreq;
-              AuxDataName={'MUA Power'};
-              var=[var '_Power_SUA'];
-              dat=data(sim_index).(var).Pxx;
+              if options.MUA_only_flag
+                dat=data(sim_index).([var '_Power_MUA']).Pxx;
+                var=[var '_Power_MUA'];
+              else
+                AuxData=data(sim_index).([var '_Power_MUA']).Pxx;
+                AuxDataName={'MUA Power'};
+                var=[var '_Power_SUA'];
+                dat=data(sim_index).(var).Pxx;
+              end
             case {'rastergram','raster'}
               set_name=regexp(var,'^([a-zA-Z0-9]+)_','tokens','once');
               allspikes{1}=data(sim_index).([var '_spike_times']);
@@ -742,11 +785,16 @@ for iFigset = 1:num_fig_sets
             case 'waveform'
               dat=data(sim_index).(var);
             case 'power'
-              AuxData=data(sim_index).([var '_Power_MUA']).Pxx;
               vlines=data(sim_index).([var '_Power_MUA']).PeakFreq;
-              AuxDataName={'MUA Power'};
-              var=[var '_Power_SUA'];
-              dat=data(sim_index).(var).Pxx;
+              if options.MUA_only_flag
+                dat=data(sim_index).([var '_Power_MUA']).Pxx;
+                var=[var '_Power_MUA'];
+              else
+                AuxData=data(sim_index).([var '_Power_MUA']).Pxx;
+                AuxDataName={'MUA Power'};
+                var=[var '_Power_SUA'];
+                dat=data(sim_index).(var).Pxx;
+              end
             case {'rastergram','raster'}
               set_name=regexp(var,'^([a-zA-Z0-9]+)_','tokens','once');
               allspikes{1}=data(sim_index).([var '_spike_times']);
@@ -772,11 +820,16 @@ for iFigset = 1:num_fig_sets
             case 'waveform'
               dat=data(sim_index).(var);
             case 'power'
-              AuxData=data(sim_index).([var '_Power_MUA']).Pxx;
               vlines=data(sim_index).([var '_Power_MUA']).PeakFreq;
-              AuxDataName={'MUA Power'};
-              var=[var '_Power_SUA'];
-              dat=data(sim_index).(var).Pxx;
+              if options.MUA_only_flag
+                dat=data(sim_index).([var '_Power_MUA']).Pxx;
+                var=[var '_Power_MUA'];
+              else
+                AuxData=data(sim_index).([var '_Power_MUA']).Pxx;
+                AuxDataName={'MUA Power'};
+                var=[var '_Power_SUA'];
+                dat=data(sim_index).(var).Pxx;
+              end
             case {'rastergram','raster'}
               set_name=regexp(var,'^([a-zA-Z0-9]+)_','tokens','once');
               allspikes{1}=data(sim_index).([var '_spike_times']);
@@ -810,23 +863,32 @@ for iFigset = 1:num_fig_sets
               end
               var=['<' variables{1} '>'];
             case 'power'
-              dat=nan(length(xdata),num_pops);
-              AuxData=nan(length(xdata),num_pops);
-              AuxDataName={}; vlines=[];
-              if ~strcmp(reportUI,'matlab') && exist('nanmean') ~= 2 % 'nanmean is not in Octave's path
-                try
-                  pkg load statistics; % trying to load octave forge 'statistics' package before using nanmean function
-                catch
-                  error('nanmean function is needed, please install the statistics package from Octave Forge');
+              if options.MUA_only_flag
+                dat=nan(length(xdata),num_pops);
+                for k=1:num_pops
+                  dat(:,k)=data(sim_index).([var_fields{k} '_Power_MUA']).Pxx;
+                  vlines(end+1)=data(sim_index).([var_fields{k} '_Power_MUA']).PeakFreq;
+                  var=['<' variables{1} '_Power_MUA>'];
                 end
+              else
+                dat=nan(length(xdata),num_pops);
+                AuxData=nan(length(xdata),num_pops);
+                AuxDataName={}; vlines=[];
+                if ~strcmp(reportUI,'matlab') && exist('nanmean') ~= 2 % 'nanmean is not in Octave's path
+                  try
+                    pkg load statistics; % trying to load octave forge 'statistics' package before using nanmean function
+                  catch
+                    error('nanmean function is needed, please install the statistics package from Octave Forge');
+                  end
+                end
+                for k=1:num_pops
+                  dat(:,k)=nanmean(data(sim_index).([var_fields{k} '_Power_SUA']).Pxx,2);
+                  AuxData(:,k)=data(sim_index).([var_fields{k} '_Power_MUA']).Pxx;
+                  AuxDataName{end+1}=strrep([var_fields{k} '_Power_MUA'],'_','\_');
+                  vlines(end+1)=data(sim_index).([var_fields{k} '_Power_MUA']).PeakFreq;
+                end
+                var=['<' variables{1} '_Power_SUA>'];
               end
-              for k=1:num_pops
-                dat(:,k)=nanmean(data(sim_index).([var_fields{k} '_Power_SUA']).Pxx,2);
-                AuxData(:,k)=data(sim_index).([var_fields{k} '_Power_MUA']).Pxx;
-                AuxDataName{end+1}=strrep([var_fields{k} '_Power_MUA'],'_','\_');
-                vlines(end+1)=data(sim_index).([var_fields{k} '_Power_MUA']).PeakFreq;
-              end
-              var=['<' variables{1} '_Power_SUA>'];
             case {'rastergram','raster'}
               set_name={};
               for k=1:num_pops
@@ -861,27 +923,40 @@ for iFigset = 1:num_fig_sets
               end
               var=['<' variables{iFigset} '>'];
             case 'power'
-              dat=nan(length(xdata),num_pops);
-              AuxData=nan(length(xdata),num_pops);
-              AuxDataName={}; vlines=[];
-              if ~strcmp(reportUI,'matlab') && exist('nanmean') ~= 2 % 'nanmean is not in Octave's path
-                try
-                  pkg load statistics; % trying to load octave forge 'statistics' package before using nanmean function
-                catch
-                  error('nanmean function is needed, please install the statistics package from Octave Forge');
+              if options.MUA_only_flag
+                dat=nan(length(xdata),num_pops);
+                for k=1:num_pops
+                  if isnan(pop_var_indices{k}(iFigset))
+                    continue;
+                  end
+                  var=var_fields{pop_var_indices{k}(iFigset)};
+                  dat(:,k)=data(sim_index).([var '_Power_MUA']).Pxx;
+                  vlines(end+1)=data(sim_index).([var '_Power_MUA']).PeakFreq;
+                var=['<' variables{iFigset} '_Power_MUA>'];
                 end
-              end
-              for k=1:num_pops
-                if isnan(pop_var_indices{k}(iFigset))
-                  continue;
+              else
+                dat=nan(length(xdata),num_pops);
+                AuxData=nan(length(xdata),num_pops);
+                AuxDataName={}; vlines=[];
+                if ~strcmp(reportUI,'matlab') && exist('nanmean') ~= 2 % 'nanmean is not in Octave's path
+                  try
+                    pkg load statistics; % trying to load octave forge 'statistics' package before using nanmean function
+                  catch
+                    error('nanmean function is needed, please install the statistics package from Octave Forge');
+                  end
                 end
-                var=var_fields{pop_var_indices{k}(iFigset)};
-                dat(:,k)=nanmean(data(sim_index).([var '_Power_SUA']).Pxx,2);
-                AuxData(:,k)=data(sim_index).([var '_Power_MUA']).Pxx;
-                AuxDataName{end+1}=strrep([var '_Power_MUA'],'_','\_');
-                vlines(end+1)=data(sim_index).([var '_Power_MUA']).PeakFreq;
+                for k=1:num_pops
+                  if isnan(pop_var_indices{k}(iFigset))
+                    continue;
+                  end
+                  var=var_fields{pop_var_indices{k}(iFigset)};
+                  dat(:,k)=nanmean(data(sim_index).([var '_Power_SUA']).Pxx,2);
+                  AuxData(:,k)=data(sim_index).([var '_Power_MUA']).Pxx;
+                  AuxDataName{end+1}=strrep([var '_Power_MUA'],'_','\_');
+                  vlines(end+1)=data(sim_index).([var '_Power_MUA']).PeakFreq;
+                end
+                var=['<' variables{iFigset} '_Power_SUA>'];
               end
-              var=['<' variables{iFigset} '_Power_SUA>'];
             case {'rastergram','raster'}
               set_name={};
               for k=1:num_pops
