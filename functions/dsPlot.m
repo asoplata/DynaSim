@@ -10,7 +10,8 @@ function handles = dsPlot(data,varargin)
 % Inputs:
 %   - data: DynaSim data structure (see dsCheckData)
 %   - options:
-%     'plot_type'       : what to plot {'waveform' (default),'rastergram','rates','power'}
+%     'plot_type'       : what to plot {'waveform' (default),'waveform_averaged',
+%                         'rastergram','rates','power'}
 %     'variable'        : name of field containing data to plot (default: all
 %                         pops with state variable of variable in data.labels)
 %     'time_limits'     : in units of data.time {[beg,end]}
@@ -164,7 +165,7 @@ data=dsCheckData(data, varargin{:});
 
 % get options
 options=dsCheckOptions(varargin,{...
-  'plot_type','waveform',{'waveform','rastergram','raster','power','rates'},...
+  'plot_type','waveform',{'waveform','waveform_averaged','rastergram','raster','power','rates'},...
   'plot_mode','trace',{'trace','image'},...
   'variable',[],[],...
   'time_limits',[-inf inf],[],...
@@ -336,6 +337,9 @@ switch options.plot_type
   case 'waveform'   % plot VARIABLE
     xdata=time;
     xlab='time (ms)'; % x-axis label
+  case 'waveform_averaged'   % plot VARIABLE
+    xdata=time;
+    xlab='time (ms)'; % x-axis label
   case 'power'      % plot VARIABLE_Power_SUA.Pxx
     if any(cellfun(@isempty,regexp(var_fields,'.*_Power_SUA$')))
       data=dsCalcPower(data,varargin{:});
@@ -389,7 +393,7 @@ end
 
 % set time_limits
 switch options.plot_type
-  case {'waveform', 'rates', 'rastergram','raster'}
+  case {'waveform', 'waveform_averaged', 'rates', 'rastergram','raster'}
     options.xlim(1) = max(options.xlim(1), options.time_limits(1));
     options.xlim(2) = min(options.xlim(2), options.time_limits(2));
 end
@@ -550,6 +554,16 @@ for iFigset = 1:num_fig_sets
               set_name=regexp(var,'^([a-zA-Z0-9]+)_','tokens','once');
               allspikes{1}{1}=data(sim_index).([var '_spike_times']){row};
                 % one pop, cell array of spike times for each cell in population
+            case 'waveform_averaged'
+              dat=data(sim_index).(var)(:,row);
+              if (size(data(sim_index).(var), 2) > 1)
+                AuxData=nanmean(data(sim_index).(var), 2);
+                AuxDataName={'Averaged Waveform'};
+                legend_strings={'Waveform of cell','Averaged Waveform'};
+              else
+                legend_strings={'Waveform of cell'};
+              end
+              
           end
           if num_rows>1
             text_string{row,col}=sprintf('cell %g',row);
@@ -570,6 +584,15 @@ for iFigset = 1:num_fig_sets
             case {'rastergram','raster'}
               set_name=regexp(var,'^([a-zA-Z0-9]+)_','tokens','once');
               allspikes{1}=data(sim_index).([var '_spike_times']);
+            case 'waveform_averaged'
+              dat=data(sim_index).(var);
+              if (size(data(sim_index).(var), 2) > 1)
+                AuxData=nanmean(data(sim_index).(var), 2);
+                AuxDataName={'Averaged Waveform'};
+                legend_strings={'Waveform of cell','Averaged Waveform'};
+              else
+                legend_strings={'Waveform of cell'};
+              end
           end
         % -----------------------------------------------------------------
         elseif num_sims==1 && num_pops==1 && num_vars>1
@@ -588,6 +611,15 @@ for iFigset = 1:num_fig_sets
             case {'rastergram','raster'}
               set_name=regexp(var,'^([a-zA-Z0-9]+)_','tokens','once');
               allspikes{1}=data(sim_index).([var '_spike_times']);
+            case 'waveform_averaged'
+              dat=data(sim_index).(var);
+              if (size(data(sim_index).(var), 2) > 1)
+                AuxData=nanmean(data(sim_index).(var), 2);
+                AuxDataName={'Averaged Waveform'};
+                legend_strings={'Waveform of cell','Averaged Waveform'};
+              else
+                legend_strings={'Waveform of cell'};
+              end
           end
           shared_ylims_flag=0;
         % -----------------------------------------------------------------
@@ -607,13 +639,22 @@ for iFigset = 1:num_fig_sets
             case {'rastergram','raster'}
               set_name=regexp(var,'^([a-zA-Z0-9]+)_','tokens','once');
               allspikes{1}=data(sim_index).([var '_spike_times']);
+            case 'waveform_averaged'
+              dat=data(sim_index).(var);
+              if (size(data(sim_index).(var), 2) > 1)
+                AuxData=nanmean(data(sim_index).(var), 2);
+                AuxDataName={'Averaged Waveform'};
+                legend_strings={'Waveform of cell','Averaged Waveform'};
+              else
+                legend_strings={'Waveform of cell'};
+              end
           end
         % -----------------------------------------------------------------
         elseif num_sims==1 && num_pops>1 && num_vars==1 && lock_gca
         % -----------------------------------------------------------------
           % one simulation per row, overlay pops: dat = <data(s=r).(var)(:,1:MTPP),2|vars>
           switch options.plot_type
-            case 'waveform'
+            case {'waveform', 'waveform_averaged'}
               % calculate averages across populations
               dat=nan(num_times,num_pops);
               
@@ -682,6 +723,15 @@ for iFigset = 1:num_fig_sets
             case {'rastergram','raster'}
               set_name=regexp(var,'^([a-zA-Z0-9]+)_','tokens','once');
               allspikes{1}=data(sim_index).([var '_spike_times']);
+            case 'waveform_averaged'
+              dat=data(sim_index).(var);
+              if (size(data(sim_index).(var), 2) > 1)
+                AuxData=nanmean(data(sim_index).(var), 2);
+                AuxDataName={'Averaged Waveform'};
+                legend_strings={'Waveform of cell','Averaged Waveform'};
+              else
+                legend_strings={'Waveform of cell'};
+              end
           end
         % -----------------------------------------------------------------
         elseif num_sims>1 && num_pops==1 && num_vars==1
@@ -700,6 +750,15 @@ for iFigset = 1:num_fig_sets
             case {'rastergram','raster'}
               set_name=regexp(var,'^([a-zA-Z0-9]+)_','tokens','once');
               allspikes{1}=data(sim_index).([var '_spike_times']);
+            case 'waveform_averaged'
+              dat=data(sim_index).(var);
+              if (size(data(sim_index).(var), 2) > 1)
+                AuxData=nanmean(data(sim_index).(var), 2);
+                AuxDataName={'Averaged Waveform'};
+                legend_strings={'Waveform of cell','Averaged Waveform'};
+              else
+                legend_strings={'Waveform of cell'};
+              end
           end
         % -----------------------------------------------------------------
         elseif num_sims>1 && num_pops==1 && num_vars>1
@@ -721,13 +780,22 @@ for iFigset = 1:num_fig_sets
             case {'rastergram','raster'}
               set_name=regexp(var,'^([a-zA-Z0-9]+)_','tokens','once');
               allspikes{1}=data(sim_index).([var '_spike_times']);
+            case 'waveform_averaged'
+              dat=data(sim_index).(var);
+              if (size(data(sim_index).(var), 2) > 1)
+                AuxData=nanmean(data(sim_index).(var), 2);
+                AuxDataName={'Averaged Waveform'};
+                legend_strings={'Waveform of cell','Averaged Waveform'};
+              else
+                legend_strings={'Waveform of cell'};
+              end
           end
         % -----------------------------------------------------------------
         elseif num_sims>1 && num_pops>1 && num_vars==1
         % -----------------------------------------------------------------
           % one simulation per row, overlay pops: dat = <data(s=r).(var)(:,1:MTPP),2|vars>
           switch options.plot_type
-            case 'waveform'
+            case {'waveform','waveform_averaged'}
               % calculate averages across populations
               dat=nan(num_times,num_pops);
               if ~strcmp(reportUI,'matlab') && exist('nanmean') ~= 2 % 'nanmean is not in Octave's path
@@ -774,7 +842,7 @@ for iFigset = 1:num_fig_sets
         % -----------------------------------------------------------------
           % one simulation per row, overlay pops: dat = <data(s=r).(var)(:,1:MTPP),2|vars(these)>
           switch options.plot_type
-            case 'waveform'
+            case {'waveform', 'waveform_averaged'}
               % calculate averages across populations
               dat=nan(num_times,num_pops);
               if ~strcmp(reportUI,'matlab') && exist('nanmean') ~= 2 % 'nanmean is not in Octave's path
@@ -874,7 +942,7 @@ for iFigset = 1:num_fig_sets
         end
         
         switch options.plot_type
-          case {'waveform','power'}
+          case {'waveform','power','waveform_averaged'}
             % finish preparing data
             if ~strcmp(options.yscale,'linear')
               dat=feval(options.yscale,dat); % log or log10
