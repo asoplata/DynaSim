@@ -75,6 +75,8 @@ options=dsCheckOptions(varargin,{...
   'timeBandwidthProduct',[],[],... % time-bandwidth product for multi-taper method
   'output_suffix','',[],...
   'auto_gen_test_data_flag',0,{0,1},...
+  'area_under_band_freqs_first',[0.5 3],[],...
+  'area_under_band_freqs_second',[8 15],[],...
   },false);
 
 %% auto_gen_test_data_flag argin
@@ -136,7 +138,9 @@ for v=1:length(options.variable)
   % preallocation
   PeakFreq=nan(1,ncells);
   PeakArea=nan(1,ncells);
-
+  AreaUnderFirstBand=nan(1,ncells);
+  AreaUnderSecondBand=nan(1,ncells);
+  
   % SUA spectra: loop over cells
   if options.MUA_only_flag == 0 || ncells == 1
     for i=1:ncells
@@ -213,9 +217,20 @@ for v=1:length(options.variable)
         sel2=(flo<=f & f<=fhi);
         % calculate area under spectrum around peak
         PeakArea(i) = sum(tmpPxx(sel2))*(f(2)-f(1));
+
+        selFirstBand = (options.area_under_band_freqs_first(1)<=f & ...
+            f<=options.area_under_band_freqs_first(end));
+        AreaUnderFirstBand(i) = sum(tmpPxx(selFirstBand))*(f(2)-f(1));
+
+        selSecondBand = (options.area_under_band_freqs_second(1)<=f & ...
+            f<=options.area_under_band_freqs_second(end));
+        AreaUnderSecondBand(i) = sum(tmpPxx(selSecondBand))*(f(2)-f(1));
+
       else
         PeakFreq(i)=nan;
         PeakArea(i)=nan;
+        AreaUnderFirstBand(i)=nan;
+        AreaUnderSecondBand(i)=nan;
       end
       % Store results
       Pxx(:,i)=tmpPxx;
@@ -228,6 +243,8 @@ for v=1:length(options.variable)
     Pxx_mean=Pxx;
     Pxx_mean_PeakFreq=PeakFreq;
     Pxx_mean_PeakArea=PeakArea;
+    Pxx_mean_AreaUnderFirstBand=AreaUnderFirstBand;
+    Pxx_mean_AreaUnderSecondBand=AreaUnderSecondBand;
   else
     if ~strcmp(reportUI,'matlab') && exist('nanmean') ~= 2 % 'nanmean is not in Octave's path
       try
@@ -303,9 +320,19 @@ for v=1:length(options.variable)
 
       % calculate area under spectrum around peak
       Pxx_mean_PeakArea = sum(tmpPxx(sel2))*(f(2)-f(1));
+
+      selFirstBand = (options.area_under_band_freqs_first(1)<=f & ...
+          f<=options.area_under_band_freqs_first(end));
+      Pxx_mean_AreaUnderFirstBand = sum(tmpPxx(selFirstBand))*(f(2)-f(1));
+
+      selSecondBand = (options.area_under_band_freqs_second(1)<=f & ...
+          f<=options.area_under_band_freqs_second(end));
+      Pxx_mean_AreaUnderSecondBand = sum(tmpPxx(selSecondBand))*(f(2)-f(1));
     else
       Pxx_mean_PeakFreq=nan;
       Pxx_mean_PeakArea=nan;
+      Pxx_mean_AreaUnderFirstBand=nan;
+      Pxx_mean_AreaUnderSecondBand=nan;
     end
     Pxx_mean=tmpPxx;
   end
@@ -318,11 +345,14 @@ for v=1:length(options.variable)
     data.([var '_Power_SUA' options.output_suffix]).Pxx=Pxx;
     data.([var '_Power_SUA' options.output_suffix]).PeakFreq=PeakFreq;
     data.([var '_Power_SUA' options.output_suffix]).PeakArea=PeakArea;
+    data.([var '_Power_SUA' options.output_suffix]).AreaUnderFirstBand=AreaUnderFirstBand;
+    data.([var '_Power_SUA' options.output_suffix]).AreaUnderSecondBand=AreaUnderSecondBand;
     data.([var '_Power_SUA' options.output_suffix]).frequency=f;
   end
   data.([var '_Power_MUA' options.output_suffix]).Pxx=Pxx_mean;
   data.([var '_Power_MUA' options.output_suffix]).PeakFreq=Pxx_mean_PeakFreq;
-  data.([var '_Power_MUA' options.output_suffix]).PeakArea=Pxx_mean_PeakArea;
+  data.([var '_Power_MUA' options.output_suffix]).AreaUnderFirstBand=Pxx_mean_AreaUnderFirstBand;
+  data.([var '_Power_MUA' options.output_suffix]).AreaUnderSecondBand=Pxx_mean_AreaUnderSecondBand;
   data.([var '_Power_MUA' options.output_suffix]).frequency=f;
 
   if options.MUA_only_flag == 0 || ncells == 1
