@@ -319,7 +319,7 @@ switch options.plot_type
       options.xlim=[0 200]; % Hz
     end
   case 'coupling'      % plot VARIABLE_Power_SUA.Pxx
-    if any(cellfun(@isempty,regexp(var_fields,'.*_Power_SUA$')))
+    if any(cellfun(@isempty,regexp(var_fields,'.*_Coupling_MUA$')))
       data=dsCalcCoupling(data,varargin{:});
     end
     xdata=data(1).([var_fields{1} '_Power_SUA']).frequency;
