@@ -320,14 +320,16 @@ switch options.plot_type
     end
   case 'coupling'      % plot VARIABLE_Power_SUA.Pxx
     if any(cellfun(@isempty,regexp(var_fields,'.*_Coupling_MUA$')))
-      data=dsCalcCoupling(data,varargin{:});
+%       data=dsCalcCoupling(data,varargin{:});
+        fprintf('hello world\n')
     end
-    xdata=data(1).([var_fields{1} '_Power_SUA']).frequency;
+    xdata=data(1).([var_fields{1} '_Coupling_MUA']).amplitudes;
     xlab='frequency (Hz)'; % x-axis label
     % set default x-limits for power spectrum
     if isempty(options.xlim)
       options.xlim=[0 200]; % Hz
     end
+    
   case {'rastergram','raster'} % raster VARIABLE_spike_times
     if any(cellfun(@isempty,regexp(var_fields,'.*_spike_times$')))
       spike_fields=cellfun(@(x)[x '_spikes'],var_fields,'uni',0);
@@ -811,6 +813,7 @@ for figset=1:num_fig_sets
         set(gcf,'CurrentAxes',haxes(axis_counter));
         switch options.plot_type
           case {'waveform','power'}
+              % AES this is the good stuff, may be able to reuse
             % finish preparing data
             if ~strcmp(options.yscale,'linear')
               dat=feval(options.yscale,dat); % log or log10
@@ -831,6 +834,10 @@ for figset=1:num_fig_sets
               imagesc(dat);
             end
           case {'coupling'}
+              imagesc(dat);
+%               hold on
+%               quiver(dat2)
+%               hold off
           case {'rastergram','raster'}
             % draw spikes
             ypos=0; % y-axis position tracker
