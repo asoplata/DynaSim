@@ -4,8 +4,9 @@
 outputs
 models/personal
 functions/personal
-*.png
 *.mat
+*.org
+*.png
 *.zip
 dsVars.txt
 dsConfig.txt

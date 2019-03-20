@@ -1,0 +1,1497 @@
+
+/home/wintermute/rep/s1-dynasim/models/getPopRhythmGating.m,427
+function [sext,tstart,Pinputs,Psource,conn,T,lambda]=getPopRhythmGating(num_sources,num_targets,prob_conn,cell_FR,pop_freq,width,T,onset,offset,tau_syn,kick,seed,mask,ac_type)getPopRhythmGating1,0
+function spiking=ConstrainSpikeCount(spiking,tstart,t,width,num_spikes)ConstrainSpikeCount226,8924
+function S = nonhomPoissonGeneratorSpikeTimes(S_ini,Ptot,tau,kick,num_targets,nt,dt)nonhomPoissonGeneratorSpikeTimes244,9635
+
+/home/wintermute/rep/s1-dynasim/models/nonhomPoissonGeneratorSpikeTimes.m,118
+function S = nonhomPoissonGeneratorSpikeTimes(S_ini,rate,tau,kick,N,interval,dt)nonhomPoissonGeneratorSpikeTimes1,0
+
+/home/wintermute/rep/s1-dynasim/models/getGenExtPoissonTotalGating.m,225
+function S = getGenExtPoissonTotalGating_jss(tOn,tOff,latency_,freq_,normFreqSigma_,phase_,widthSigma,rate_baseline,rate_dc_,rate_ac_,tau,kick,N,interval,dt,conn,ramp_dc_flag,ramp_ac_flag)getGenExtPoissonTotalGating_jss1,0
+
+/home/wintermute/rep/s1-dynasim/models/getPoissonGating.m,138
+function sext=getPoissonGating(baseline,dc,ac,freq,phase,onset,offset,tau,T,N,kernel,kick,ramp_dc_flag,ramp_ac_flag)getPoissonGating1,0
+
+/home/wintermute/rep/s1-dynasim/models/personal/dynasim-krishnan-2016-model/applyCorticalExperimentFactors.m,114
+function output = applyCorticalExperimentFactors(krishnanSpecification, stage)applyCorticalExperimentFactors1,0
+
+/home/wintermute/rep/s1-dynasim/models/personal/dynasim-krishnan-2016-model/applyCorticalPropofol.m,126
+function output = applyCorticalPropofol(krishnanSpecification, decayTimeMultiplier, condMultiplier)applyCorticalPropofol1,0
+
+/home/wintermute/rep/s1-dynasim/models/personal/dynasim-krishnan-2016-model/runKrishnanModelSimpleMini.m,0
+
+/home/wintermute/rep/s1-dynasim/models/personal/dynasim-krishnan-2016-model/removeCorticalNoiseIC.m,89
+function output = removeCorticalNoiseIC(krishnanSpecification)removeCorticalNoiseIC1,0
+
+/home/wintermute/rep/s1-dynasim/models/personal/dynasim-krishnan-2016-model/assembleCorticalSpecification.m,112
+function specification = assembleCorticalSpecification(dt, numCellsScaledown)assembleCorticalSpecification1,0
+
+/home/wintermute/rep/s1-dynasim/models/personal/dynasim-krishnan-2016-model/models/netconNearestNeighbors.m,114
+function netcon = netconNearestNeighbors(nNeighbors, nPre, nPost, removeRecurrentBool)netconNearestNeighbors1,0
+
+/home/wintermute/rep/s1-dynasim/models/personal/dynasim-krishnan-2016-model/models/iNaThresholdDetector.m,81
+function rateValue = iNaThresholdDetector(v, thr, a, q)iNaThresholdDetector1,0
+
+/home/wintermute/rep/s1-dynasim/models/personal/dynasim-krishnan-2016-model/models/newReleaseUpdate.m,98
+function output = newReleaseUpdate(timeSinceSpike, miniFreq, epsilon, N_pre)newReleaseUpdate1,0
+
+/home/wintermute/rep/s1-dynasim/models/personal/dynasim-krishnan-2016-model/assembleSpecification.m,96
+function specification = assembleSpecification(dt, numCellsScaledown)assembleSpecification1,0
+
+/home/wintermute/rep/s1-dynasim/models/personal/dynasim-krishnan-2016-model/removeNoiseIC.m,73
+function output = removeNoiseIC(krishnanSpecification)removeNoiseIC1,0
+
+/home/wintermute/rep/s1-dynasim/models/personal/dynasim-krishnan-2016-model/applyPaperValues.m,79
+function output = applyPaperValues(krishnanSpecification)applyPaperValues1,0
+
+/home/wintermute/rep/s1-dynasim/models/personal/dynasim-krishnan-2016-model/applyPropofol.m,110
+function output = applyPropofol(krishnanSpecification, decayTimeMultiplier, condMultiplier)applyPropofol1,0
+
+/home/wintermute/rep/s1-dynasim/models/personal/dynasim-krishnan-2016-model/applyExperimentFactors.m,98
+function output = applyExperimentFactors(krishnanSpecification, stage)applyExperimentFactors1,0
+
+/home/wintermute/rep/s1-dynasim/models/personal/dynasim-krishnan-2016-model/runKrishnanModel.m,0
+
+/home/wintermute/rep/s1-dynasim/models/personal/dynasim-krishnan-2016-model/assembleSpecSimpleMini.m,96
+function specification = assembleSpecification(dt, numCellsScaledown)assembleSpecification1,0
+
+/home/wintermute/rep/s1-dynasim/models/personal/dynasim-krishnan-2016-model/krishnan-2016-standalone-tests/testDepressionMath.m,173
+function result = Dt1Continuous(x,Dti1,ti1,ti2,ti3,ti4,ti5,U,tau)Dt1Continuous69,2417
+function result = Dt1Flat(x,Dti1,ti1,ti2,ti3,ti4,ti5,U,tau,oldValue)Dt1Flat78,3049
+
+/home/wintermute/rep/s1-dynasim/models/personal/dynasim-krishnan-2016-model/krishnan-2016-standalone-tests/testMinis.m,57
+function result = SS(x,lastrelease1,mini_fre)SS56,1572
+
+/home/wintermute/rep/s1-dynasim/models/personal/dynasim-krishnan-2016-model/krishnan-2016-standalone-tests/iNa-threshold-test/iNaThresholdDetectorDivided.m,95
+function rateValue = iNaThresholdDetectorDivided(v, thr, a, q)iNaThresholdDetectorDivided1,0
+
+/home/wintermute/rep/s1-dynasim/models/personal/dynasim-krishnan-2016-model/krishnan-2016-standalone-tests/iNa-threshold-test/iNaThresholdDetectorSubtracted.m,101
+function rateValue = iNaThresholdDetectorSubtracted(v, thr, a, q)iNaThresholdDetectorSubtracted1,0
+
+/home/wintermute/rep/s1-dynasim/models/personal/dynasim-krishnan-2016-model/krishnan-2016-standalone-tests/iNa-threshold-test/testINaThresholdDetector.m,0
+
+/home/wintermute/rep/s1-dynasim/models/personal/dynasim-krishnan-2016-model/applyCorticalPaperValues.m,95
+function output = applyCorticalPaperValues(krishnanSpecification)applyCorticalPaperValues1,0
+
+/home/wintermute/rep/s1-dynasim/models/personal/propofol-coupling-2017-mechanisms/models/GeneratePoissonCorr.m,142
+function psps = GeneratePoissonCorr(no_cells, inputs_per_cell, rate, tau_i, tau_1, tau_d, tau_r, T, dt, jitter_sigma)GeneratePoissonCorr1,0
+
+/home/wintermute/rep/s1-dynasim/models/personal/propofol-coupling-2017-mechanisms/models/GeneratePoissonUncorr.m,132
+function psps = GeneratePoissonUncorr(no_cells, inputs_per_cell, rate, tau_i, tau_1, tau_d, tau_r, T, dt)GeneratePoissonUncorr1,0
+
+/home/wintermute/rep/s1-dynasim/models/personal/propofol-coupling-2017-mechanisms/testing/test_script.m,0
+
+/home/wintermute/rep/s1-dynasim/models/personal/propofol-coupling-2017-mechanisms/tcre_run_script.m,0
+
+/home/wintermute/rep/s1-dynasim/models/personal/dynasim-extended-benita-model/models/netconNearestNeighbors.m,114
+function netcon = netconNearestNeighbors(nNeighbors, nPre, nPost, removeRecurrentBool)netconNearestNeighbors1,0
+
+/home/wintermute/rep/s1-dynasim/models/personal/dynasim-extended-benita-model/removeNoiseIC.m,71
+function output = removeNoiseIC(benitaSpecification)removeNoiseIC1,0
+
+/home/wintermute/rep/s1-dynasim/models/personal/dynasim-extended-benita-model/assembleExtSpec.m,80
+function specification = assembleExtSpec(numCellsScaledown)assembleExtSpec1,0
+
+/home/wintermute/rep/s1-dynasim/models/personal/dynasim-extended-benita-model/assemblemGluRKLeakSpec.m,94
+function specification = assemblemGluRKLeakSpec(numCellsScaledown)assemblemGluRKLeakSpec1,0
+
+/home/wintermute/rep/s1-dynasim/models/personal/dynasim-extended-benita-model/assembleCortSpec.m,82
+function specification = assembleCortSpec(numCellsScaledown)assembleCortSpec1,0
+
+/home/wintermute/rep/s1-dynasim/models/personal/dynasim-extended-benita-model/runExtendedModel.m,0
+
+/home/wintermute/rep/s1-dynasim/models/getBurstGating.m,342
+function [sext,tstart,Ptot,sources_eg]=getBurstGating(T,freq,width,num_spikes,dc,num_targets,minIBI,meanIBI,tau,kick,kernel,shared_sources_flag,onset,offset,ramp_dc_flag,ramp_ac_flag,num_sources)getBurstGating1,0
+function S = nonhomPoissonGeneratorSpikeTimes(S_ini,Ptot,tau,kick,num_targets,nt,dt)nonhomPoissonGeneratorSpikeTimes168,6885
+
+/home/wintermute/rep/s1-dynasim/functions/dsPlot.m,52
+function handles = dsPlot(data,varargin)dsPlot1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dsSimulate.m,259
+function [data,studyinfo,result] = dsSimulate(model,varargin)dsSimulate1,0
+function [model,options]=extract_vary_statement(model,options)extract_vary_statement1237,52059
+function options = backward_compatibility(options)backward_compatibility1253,52588
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsZipDemoData.m,63
+function zipfname = dsZipDemoData(study_dir)dsZipDemoData1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsGetLinearIndependentDs.m,127
+function [Abasis, Abasisi, Asubs] = dsGetLinearIndependentDs(data,ignore_constant_shift,varargin)dsGetLinearIndependentDs1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsCompareSolveFiles.m,103
+function solve_file_m = dsCompareSolveFiles(solve_file_m,mexPath,verbose_flag)dsCompareSolveFiles1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsGetParentNamespace.m,85
+function parent = dsGetParentNamespace(namespace, varargin)dsGetParentNamespace1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsGenerateModel.m,168
+function [model,name_map] = dsGenerateModel(specification, varargin)dsGenerateModel1,0
+function str=linker_strrep(str,oldstr,newstr,operator)linker_strrep701,29284
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsAnalyzeStudy.m,85
+function [results,studyinfo] = dsAnalyzeStudy(data,func,varargin)dsAnalyzeStudy1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsPlotFR2.m,58
+function handles = dsPlotFR2(data,varargin)dsPlotFR21,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsNameFromVaried.m,99
+function new_result_file = dsNameFromVaried(data, file_type, old_result_file)dsNameFromVaried1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsStudyinfoIO.m,158
+function studyinfo = dsStudyinfoIO(studyinfo,study_file,id,verbose_flag)dsStudyinfoIO1,0
+function id=NextStudyinfoID(study_dir,OS)NextStudyinfoID256,9029
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsVary2Modifications.m,258
+function modifications_set = dsVary2Modifications(vary,model)dsVary2Modifications1,0
+function list = expand_vary(specification)expand_vary170,6695
+function list = expand_elem(item)expand_elem198,7477
+function list = getcombos(elems)getcombos239,8884
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsCheckModel.m,141
+function model = dsCheckModel(model, varargin)dsCheckModel1,0
+function model=backward_compatibility(model)backward_compatibility133,5853
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsMdd2ds.m,418
+function data = dsMdd2ds(obj,varargin)dsMdd2ds1,0
+function varied_names = only_varieds(all_names)only_varieds134,4024
+function data = add_pop_sizes(data,obj,num_pops,pop_names)add_pop_sizes141,4251
+function labels = get_axis_labels(obj,ax_vals)get_axis_labels191,6614
+function out = guess_variable_name(obj)guess_variable_name237,8392
+function out = guess_population_name(obj)guess_population_name251,8660
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsImg2mdd.m,95
+function xp = dsImg2mdd(data_img,merge_covaried_axes,merge_sparse_axes,varargin)dsImg2mdd1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsCalcFRmulti.m,64
+function data = dsCalcFRmulti(data, varargin)dsCalcFRmulti1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsImportCSV.m,50
+function data = dsImportCSV(file)dsImportCSV1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsGetOutputCounts.m,92
+function [state_var_counts,monitor_counts] = dsGetOutputCounts(model)dsGetOutputCounts1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsMonitorStudy.m,90
+function [studyinfo,study_status] = dsMonitorStudy(studyinfo,varargin)dsMonitorStudy1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsCheckCovary.m,254
+function [effective_vary_indices, linked_indices] = dsCheckCovary(vary_lengths, vary_params, varargin)dsCheckCovary1,0
+function [linked_indices, non_linked_indices] = find_linked_params(param_indices, vary_params, varargin)find_linked_params126,4509
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsUnzipDemoData.m,95
+function study_dir = dsUnzipDemoData(zipfname,overwrite_flag,verbose_flag)dsUnzipDemoData1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsReadText.m,48
+function text = dsReadText(file)dsReadText1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsPrepareMEX.m,126
+function mexfileOutput = dsPrepareMEX(mfileInput, varargin)dsPrepareMEX1,0
+function makeMex(file, options)makeMex103,3612
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsPlot2D.m,46
+function dsPlot2D(data,varargin)dsPlot2D1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsGetPopSizeFromName.m,96
+function [pop_size,pop_name,target] = dsGetPopSizeFromName(model,name)dsGetPopSizeFromName1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsComputeRaster.m,70
+function raster  = dsComputeRaster(t,V,threshold)dsComputeRaster1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsLocateModelFiles.m,74
+function [paths,files] = dsLocateModelFiles(input)dsLocateModelFiles1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsPlotFR.m,56
+function handles = dsPlotFR(data,varargin)dsPlotFR1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsGetRootPath.m,58
+function ds_root_path = dsGetRootPath()dsGetRootPath1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsAll2mdd.m,64
+function [xp,is_image] = dsAll2mdd(data,varargin)dsAll2mdd1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsGet_variables_from_meta.m,81
+function varlabels = dsGet_variables_from_meta(xp)dsGet_variables_from_meta1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsCheckVersion.m,41
+function checkVersion()checkVersion1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsPropagateFunctions.m,241
+function model = dsPropagateFunctions(model, varargin)dsPropagateFunctions1,0
+functions=model.functions;model61,2062
+function [expression,functions_were_found] = insert_functions(expression,functions, varargin)insert_functions119,3760
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsWriteMatlabSolver.m,186
+function solve_ode_filepath = dsWriteMatlabSolver(model,varargin)dsWriteMatlabSolver1,0
+function setup_randomseed(options,fid,rng_function,parameter_prefix)setup_randomseed455,16593
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsData2Table.m,100
+function [data_table,column_titles,time] = dsData2Table(data,verbose_flag,maxrows)dsData2Table1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsImportPlots.m,75
+function [data,studyinfo] = dsImportPlots(file,varargin)dsImportPlots1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsGenerateDocumentation.m,57
+function generateDocumentationgenerateDocumentation1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsCheckSolverOptions.m,74
+function options = dsCheckSolverOptions(options)dsCheckSolverOptions1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsSpecdiff.m,583
+function [pop_diff,conn_diff] = dsSpecDiff(spec1,spec2,verbose)dsSpecDiff1,0
+function [val,pop_name,properties] = extract_pop_lists(s)extract_pop_lists127,3893
+function [val,pop_name,properties] = extract_conn_lists(s)extract_conn_lists154,5029
+function out = mycompare(x,y)mycompare180,5931
+function fprintf_cells(string,cells2print)fprintf_cells209,6969
+function [str_merged,ind1,ind2] = compare_string_cells(string1,string2)compare_string_cells218,7166
+function run_comparison(nd)run_comparison234,7577
+function s = return_comparison(nd)return_comparison326,12429
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsCalcACF.m,56
+function data = dsCalcACF(data, varargin)dsCalcACF1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsDecimateData.m,73
+function data_out = dsDecimateData(data,ds, varargin)dsDecimateData1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsMergeVarieds.m,263
+function [data_new, variedname_merged, varied_vals ] = dsMergeVarieds(data,varied_fields,maxchars,varargin)dsMergeVarieds1,0
+function str_out = cat_with_underscores(cellstr_in)cat_with_underscores83,3221
+function out = cropname(in, maxchars)cropname93,3585
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsMergeData.m,64
+function data_merged = dsMergeData(data1,data2)dsMergeData1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsCalcSpikeSync.m,69
+function stats = dsCalcSpikeSync(data, varargin)dsCalcSpikeSync1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsMakeDefaultConfig.m,51
+function makeDefaultConfig()makeDefaultConfig1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsGet_populations_from_meta.m,85
+function poplabels = dsGet_populations_from_meta(xp)dsGet_populations_from_meta1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsCalcSumOverFields.m,103
+function data = dsCalcSumOverFields(data, fields, output_field_name, varargin)dsCalcSumOverFields1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsPlotStudy.m,87
+function [handles, hsp, h2] = dsPlotStudy(data,myplot_handle,varargin)dsPlotStudy1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsSelectVariables.m,103
+function [variables,pop_names] = dsSelectVariables(labels,var_strings, varargin)dsSelectVariables1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsGetNamespaces.m,68
+function [name_,name__] = dsGetNamespaces(spec)dsGetNamespaces1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsMakeDefaultConfigJenkins.m,65
+function makeDefaultConfigJenkins()makeDefaultConfigJenkins1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/xp_libraries/xp_PlotFR2.m,50
+function hxp = xp_PlotFR2 (xp, op)xp_PlotFR23,2
+
+/home/wintermute/rep/s1-dynasim/functions/internal/xp_libraries/xp_PlotFRpanel.m,58
+function hxp = xp_PlotFRpanel (xp, op)xp_PlotFRpanel3,2
+
+/home/wintermute/rep/s1-dynasim/functions/internal/xp_libraries/xp_PlotData.m,52
+function hxp = xp_PlotData (xp, op)xp_PlotData3,2
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsCheckData.m,60
+function data = dsCheckData(data, varargin)dsCheckData1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsCreateBatch.m,99
+function [studyinfo, cmd] = dsCreateBatch(base_model,modifications_set,varargin)dsCreateBatch1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsCalcAverages.m,75
+function data_out = dsCalcAverages(data,opts, varargin)dsCalcAverages1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsCombineModels.m,150
+function model = dsCombineModels(model1,model2, varargin)dsCombineModels1,0
+function out=concatenate_structures(a,b)concatenate_structures67,2372
+
+/home/wintermute/rep/s1-dynasim/functions/internal/ds2mdd.m,169
+function xp = ds2mdd(data,merge_covaried_axes,merge_sparse_axes,varargin)ds2mdd1,0
+function var2 = convert_cell2D_to_nested1D(var)convert_cell2D_to_nested1D114,4308
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsGetConfig.m,56
+function varOutput = dsGetConfig(query)dsGetConfig1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsImportModel.m,288
+function [model,map] = dsImportModel(source,varargin)dsImportModel1,0
+function modl=set_user_parameters(modl,params,namespace)set_user_parameters88,2854
+function modl=add_missing_ICs(modl,popname)add_missing_ICs168,5802
+function source=downloadModel(ModelID)downloadModel194,6684
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsCalcFR.m,54
+function data = dsCalcFR(data, varargin)dsCalcFR1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsCheckHostPaths.m,94
+function [matched,error_message] = dsCheckHostPaths(studyinfo, varargin)dsCheckHostPaths1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsParseModelEquations.m,161
+function [model,name_map] = dsParseModelEquations(text,varargin)dsParseModelEquations1,0
+function [line,comment]=remove_comment(line)remove_comment408,15582
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsIsDevMode.m,49
+function devBool = dsIsDevMode()dsIsDevMode1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsCheckCovaryWrapper.m,110
+function [effective_vary_indices, linked_inds] = dsCheckCovaryWrapper(data,varargin)dsCheckCovaryWrapper1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsStrrep.m,76
+function str = dsStrrep(str,oldstr,newstr,lpad,rpad, varargin)dsStrrep1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsCheckStudyinfo.m,80
+function studyinfo = dsCheckStudyinfo(studyinfo, varargin)dsCheckStudyinfo1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsModifications2Vary.m,192
+function data = dsModifications2Vary(data,modifications,options,modifications_set,sim)dsModifications2Vary1,0
+function modifications=expand_modifications(mods)expand_modifications110,3296
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsImportResults.m,81
+function results = dsImportResults(studyinfo,func, varargin)dsImportResults1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsClassifyEquation.m,150
+function classes = dsClassifyEquation(string,delimiter, varargin)dsClassifyEquation1,0
+function class = classify(string, varargin)classify98,3181
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsAutoMergeVarieds.m,705
+function [data, variedname_merged, varied_vals ] = dsAutoMergeVarieds(data,strategy,verbose_on,varargin)dsAutoMergeVarieds2,1
+function [cols2merge_out] = find_shortest_mergelist(vary_params,success_thresh,maxiter)find_shortest_mergelist82,2555
+function cols_list = subdivide_ind_list(vary_params,cols_list,success_thresh,maxiter)subdivide_ind_list112,3433
+function vary_params = all2str(vary_params)all2str150,5387
+function out = mergevary(in,varargin)mergevary163,5758
+function out = mergevary_sub(in,cols2merge)mergevary_sub186,6250
+function str_out = cat_with_underscores(cellstr_in)cat_with_underscores201,6548
+function percent_full = getpercentfull(vary_merged)getpercentfull211,6920
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsRemoveKeyval.m,71
+function keyvals_out = dsRemoveKeyval(keyvals,keys)dsRemoveKeyval1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsStrrep2.m,78
+function str = dsStrrep2(str,oldstr,newstr,lpad,rpad, varargin)dsStrrep21,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsPropagateNamespaces.m,279
+function model = dsPropagateNamespaces(model,map, varargin)dsPropagateNamespaces1,0
+function expressions=propagate_namespaces(expressions,namespaces,map,insert_types)propagate_namespaces124,5160
+function parent = dsGetParentNamespace(namespace)dsGetParentNamespace208,8741
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsEditModelFiles.m,50
+function editModelFiles(files)editModelFiles1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsCombineSpecifications.m,81
+function spec=dsCombineSpecifications(spec,varargin)dsCombineSpecifications1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsPlotWaveforms.m,56
+function plotWaveforms(data,varargin)plotWaveforms1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsWriteDynaSimSolver.m,847
+function [outfile,options] = dsWriteDynaSimSolver(model,varargin)dsWriteDynaSimSolver1,0
+function print_k(fid,odes_k,suffix_k,state_variables,nvals_per_var)print_k948,40087
+function odes_out=update_odes(odes,suffix_k,increment,state_variables,index_lasts, varargin)update_odes955,40328
+function print_var_update(fid,index_nexts,index_lasts,update_term,state_variables)print_var_update967,40922
+function print_var_update_last(fid,index_nexts,state_variables)print_var_update_last988,41772
+function print_conditional_update(fid,conditionals,index_nexts,state_variables, varargin)print_conditional_update1003,42320
+function print_monitor_update(fid,monitors,index_nexts,state_variables,index_lasts, varargin)print_monitor_update1055,44147
+function setup_randomseed(options,fid,rng_function,parameter_prefix)setup_randomseed1158,47500
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsProbeFI.m,56
+function data = dsProbeFI(model,varargin)dsProbeFI1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsProbeCellProperties.m,80
+function data = dsProbeCellProperties(model,varargin)dsProbeCellProperties1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsCropData.m,66
+function data_out = dsCropData(data,inds,varargin)dsCropData1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsUpdateStudy.m,73
+function studyinfo = dsUpdateStudy(study_dir,varargin)dsUpdateStudy1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsApplyModifications.m,419
+function [output,modifications] = dsApplyModifications(model, modifications, varargin)dsApplyModifications1,0
+function modifications = standardize_modifications(modifications,specification, varargin)standardize_modifications136,4963
+function spec = modify_specification(spec,mods, varargin)modify_specification243,8816
+function modifications=backward_compatibility(modifications)backward_compatibility460,16358
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsMdd2dsImage.m,49
+function data = MDD2dsImage(obj)MDD2dsImage1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsCheckSpecification.m,310
+function spec = dsCheckSpecification(specification, varargin)dsCheckSpecification1,0
+function txt=read_mechanism_file(file)read_mechanism_file678,27015
+function list = expand_list(list, varargin)expand_list703,27838
+function spec = backward_compatibility(spec, varargin)backward_compatibility737,28740
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsCalcISI.m,56
+function data = dsCalcISI(data, varargin)dsCalcISI1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsDataField2Table.m,108
+function [data_table,column_titles] = dsDataField2Table (data,fieldname,verbose_flag)dsDataField2Table1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsCalcPower.m,60
+function data = dsCalcPower(data, varargin)dsCalcPower1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsIndexToBlocks.m,61
+function blocks = dsIndexToBlocks(index)dsIndexToBlocks1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsSetupStudy.m,82
+function [studyinfo,options] = dsSetupStudy(base_model,varargin)dsSetupStudy1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsOptions2Keyval.m,65
+function keyval = dsOptions2Keyval(options)dsOptions2Keyval1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsCheckOptions.m,107
+function [parms, params_unspecified ] = dsCheckOptions(options, options_schema, strict)dsCheckOptions1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsDynasim2odefun.m,89
+function [ODEFUN,IC,elem_names] = dsDynasim2odefun(model, varargin)dsDynasim2odefun1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsCalcCellProperties.m,79
+function stats = dsCalcCellProperties(data, varargin)dsCalcCellProperties1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsCollectVariedParams.m,105
+function [param_mat,varied,param_cell] = dsCollectVariedParams(data, varargin)dsCollectVariedParams1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsGetSolveFile.m,82
+function solve_file = dsGetSolveFile(model,studyinfo,varargin)dsGetSolveFile1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsRearrangeStudies2Neurons.m,84
+function data_out = dsRearrangeStudies2Neurons(data)dsRearrangeStudies2Neurons1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsCalcCurrentPosthoc.m,171
+function data = dsCalcCurrentPosthoc(data, mechanism_prefix, current_equation, additional_fields, additional_constants, current_suffix, varargin)dsCalcCurrentPosthoc1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsExportData.m,54
+function dsExportData(data,varargin)dsExportData1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsDownloadFiles.m,122
+function destinationFile = dsDownloadFiles(requestedFile,destinationFile,overwrite_flag,verbose_flag)dsDownloadFiles1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsThevEquiv.m,126
+function data = dsThevEquiv(data, fields_currents, field_voltage, reversals_list, output_field_name,varargin)dsThevEquiv1,0
+
+/home/wintermute/rep/s1-dynasim/functions/internal/dsPropagateParameters.m,200
+function model = dsPropagateParameters(model,varargin)dsPropagateParameters1,0
+function expression=insert_parameters(expression,parameters,attachType,attachStr, varargin)insert_parameters132,4067
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/compareFigFiles/compareFigFiles2.m,772
+function [diffStruct,consolidatedData1,consolidatedData2] = compareFigFiles2(name1, name2, suppressPrintBool)compareFigFiles21,0
+function data = getFigData(figFilename)getFigData158,7013
+function data = rmIssueFlds(data)rmIssueFlds178,7603
+function filename = getFullPath(filename)getFullPath186,7853
+function filename = normalizeFigFilename(filename)normalizeFigFilename203,8318
+function consolidatedData = processStruct(consolidatedData,data,parentTag)processStruct211,8577
+function [objectC,IA,IB] = objdiff(objectA,objectB,varargin)objdiff243,9888
+function [objectC,IA,IB] = compareStructs(objectA,objectB,ignoreJavaObjectsFlag)compareStructs366,14525
+function obj = decell(obj)decell412,16260
+function obj = getSingleton(obj)getSingleton419,16387
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/compareFigFiles/compareFigFiles.m,715
+function [diffStruct,consolidatedData1,consolidatedData2] = compareFigFiles(name1, name2, suppressPrintBool)compareFigFiles1,0
+function data = getFigData(figFilename)getFigData152,6827
+function filename = getFullPath(filename)getFullPath172,7435
+function filename = normalizeFigFilename(filename)normalizeFigFilename189,7900
+function consolidatedData = processStruct(consolidatedData,data,parentTag)processStruct197,8159
+function [objectC,IA,IB] = objdiff(objectA,objectB,varargin)objdiff229,9470
+function [objectC,IA,IB] = compareStructs(objectA,objectB,ignoreJavaObjectsFlag)compareStructs352,14107
+function obj = decell(obj)decell398,15842
+function obj = getSingleton(obj)getSingleton405,15969
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/compareFigFiles/compareFigFiles_original.m,837
+function [diffStruct,consolidatedData1,consolidatedData2] = compareFigFiles(name1, name2)compareFigFiles1,0
+function [diffStruct,consolidatedData1,consolidatedData2] = compareSingleFigFiles(fig1Filename, fig2Filename)compareSingleFigFiles107,4867
+function data = getFigData(figFilename)getFigData127,5858
+function filename = getFullPath(filename)getFullPath138,6240
+function filename = normalizeFigFilename(filename)normalizeFigFilename155,6705
+function consolidatedData = processStruct(consolidatedData,data,parentTag)processStruct163,6964
+function [objectC,IA,IB] = objdiff(objectA,objectB,varargin)objdiff195,8275
+function [objectC,IA,IB] = compareStructs(objectA,objectB,ignoreJavaObjectsFlag)compareStructs318,12912
+function obj = decell(obj)decell364,14647
+function obj = getSingleton(obj)getSingleton371,14774
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/distinguishable_colors/distinguishable_colors.m,184
+function colors = distinguishable_colors(n_colors,bg,func)distinguishable_colors1,0
+function c = parsecolor(s)parsecolor121,4900
+function c = colorstr2rgb(c)colorstr2rgb131,5114
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/catstruct.m,47
+function A = catstruct(varargin)catstruct1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/getLinearIndependentCell.m,373
+function [Abasis, Abasisi, Asubs] = getLinearIndependentCell(A,ignore_constant_shift)getLinearIndependentCell3,2
+function inds_out = convert_submat_indices_to_fullmat_indices(inds_in,mapping)convert_submat_indices_to_fullmat_indices159,5317
+function covaried = getLICellOnly(vary_cell)getLICellOnly164,5435
+function out = nestCellColumns(in)nestCellColumns177,5678
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/readtext.m,189
+function      [data, result]= readtext(text, delimiter, comment, quotes, options)readtext1,0
+function x= s2n(s, lenS)s2n357,17136
+function emptywaitbar(varargin)emptywaitbar447,19571
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/reportUI.m,36
+function ui = reportUIreportUI1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/junk/spare_code_for_doing_meta_datainfo_as_xPlt.m,103
+function di = update_metadata_packedDims(di,packed_vars,packed_name)update_metadata_packedDims24,377
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/wiki.m,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/templates/myMDDRefSubclass.m,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/templates/myMDDSubclass.m,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/templates/myMDDAxisSubclass.m,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/dependencies/subplot_grid/subplot_grid.m,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/dependencies/add_stars.m,72
+function add_stars(handle, t, logical, side_vec, c_order)add_stars1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/dependencies/catstruct/catstruct.m,47
+function A = catstruct(varargin)catstruct1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/dependencies/kakearney-boundedline-pkg-32f2a1f/catuneven/catuneven.m,60
+function b = catuneven(dim, padval, varargin)catuneven1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/dependencies/kakearney-boundedline-pkg-32f2a1f/boundedline/boundedline.m,217
+function varargout = boundedline(varargin)boundedline1,0
+function [found, val, vars] = parseparam(vars, param)parseparam371,10670
+function [xp, yp] = calcpatch(xl, yl, isvert, lo, hi, nanflag)calcpatch393,11098
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/dependencies/kakearney-boundedline-pkg-32f2a1f/boundedline/outlinebounds.m,56
+function hnew = outlinebounds(hl, hp)outlinebounds1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/dependencies/kakearney-boundedline-pkg-32f2a1f/singlepatch/singlepatch.m,59
+function varargout = singlepatch(varargin)singlepatch1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/dependencies/struct_addDef.m,72
+function s = struct_addDef(s,fieldname,default_value)struct_addDef1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/dependencies/subplot_size.m,77
+function [subplot_rows,subplot_cols]=subplot_size(no_plots)subplot_size1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/library_plots/xp_plotimage.m,53
+function hxp = xp_plotimage (xp,op)xp_plotimage3,2
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/library_plots/xp_compare_2D.m,123
+function [p_values, test] = xp_compare_2D(xp, test_handle, significance, transpose_flag, flip_axis_flag)xp_compare_2D1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/library_plots/xp_matrix_imagesc.m,69
+function hxp = xp_matrix_imagesc (xp, options)xp_matrix_imagesc2,1
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/library_plots/xp_tight_subplot_adaptive.m,211
+function [hts, titles] = xp_tight_subplot_adaptive (xp, dim_order, max_subplot_side, transpose_on, sync_axes_flag)xp_tight_subplot_adaptive1,0
+function vals = setup_axis_labels(xpa)setup_axis_labels172,4764
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/library_plots/xp_comparison_plot_2D.m,65
+function xp_comparison_plot_2D(xp, op)xp_comparison_plot_2D1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/library_plots/xp_scatter_w_corr.m,53
+function xp_scatter_w_corr(xp)xp_scatter_w_corr1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/library_plots/xp_subplot.m,184
+function hxp=xp_subplot (xp,options)xp_subplot3,2
+function hxp=xp_subplot1_noimage(xp)xp_subplot1_noimage50,1255
+function hxp = xp_subplot2_asimage(xp)xp_subplot2_asimage76,2045
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/library_plots/xp1D_matrix_plot.m,62
+function hxp = xp1D_matrix_plot (xp, op)xp1D_matrix_plot3,2
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/library_plots/xp_subplot_grid3D.m,131
+function hxp = xp_subplot_grid3D (xp, op)xp_subplot_grid3D3,2
+function outstr = setup_axis_labels(xpa)setup_axis_labels94,3134
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/library_plots/xp_handles_newfig.m,140
+function hxp = xp_handles_newfig (xp, op)xp_handles_newfig3,2
+function varargout = mkdirSilent(output_path,varargin)mkdirSilent101,3559
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/library_plots/xp_subplot_grid.m,128
+function hxp = xp_subplot_grid (xp, op)xp_subplot_grid3,2
+function outstr = setup_axis_labels(xpa)setup_axis_labels143,4716
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/library_plots/xp_matrix_advancedplot3D.m,78
+function hxp = xp_matrix_advancedplot3D (xp, op)xp_matrix_advancedplot3D3,2
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/library_plots/xp_matrix.m,57
+function hxp = xp_matrix (xp, legend_flag)xp_matrix2,1
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/library_plots/xp_matrix_basicplot.m,73
+function hxp = xp_matrix_basicplot (xp, options)xp_matrix_basicplot2,1
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/library_plots/xp_scatter.m,39
+function xp_scatter(xp)xp_scatter1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/library_plots/xp_matrix_transpose.m,64
+function obj = xp_matrix_transpose(obj)xp_matrix_transpose1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/library_plots/xp_matrix_barplot.m,54
+function xp_matrix_barplot (xp)xp_matrix_barplot2,1
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/library_plots/xp_compare_barplot_2D.m,120
+function xp_compare_barplot_2D(xp, test_handle, significance, transpose_flag, flip_axis_flag)xp_compare_barplot_2D1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/library_plots/xp_compare_3D.m,103
+function xp_compare_3D(xp, test_handle, significance, flip_axis_flag, plot_function)xp_compare_3D1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/library_plots/xp_parfor.m,50
+function varargout = xp_parfor (xp)xp_parfor1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/library_plots/apply_to_data.m,81
+function xp_out = apply_to_data(xp, function_handle, varargin)apply_to_data1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/library_plots/mean_over_axis.m,111
+function obj_out = mean_over_axis(obj, axis_dim, op) % axis_dim, function_handle, varargin)mean_over_axis1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/library_plots/xp_subplot_grid_adaptive.m,199
+function hsg = xp_subplot_grid_adaptive (xp, dim_order, max_subplot_side, display_mode, transpose_on)xp_subplot_grid_adaptive3,2
+function outstr = setup_axis_labels(xpa)setup_axis_labels174,5407
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/library_plots/norm_axis_by_value.m,95
+function obj = norm_axis_by_value(obj, axis_dim, axis_value, norm_flag)norm_axis_by_value1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/library_plots/xp_abs.m,38
+function obj = xp_abs(obj)xp_abs2,1
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/library_plots/xp_compare_1D.m,72
+function xp_compare_1D(xp, test_handle, significance)xp_compare_1D1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/library_plots/adaptive_indices.m,150
+function [dim_indices, subplot_indices, figure_indices, no_rows, no_cols, figs_through] = adaptive_indices(sz, max_subplot_side)adaptive_indices1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/library_plots/xp1D_matrix_boundedline.m,76
+function hxp = xp1D_matrix_boundedline (xp, op)xp1D_matrix_boundedline3,2
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/library_plots/xp_comparison_plot_1D.m,88
+function xp_comparison_plot_1D(xp, test_handle, significance)xp_comparison_plot_1D1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/library_plots/xp_matrix_basicplot_cdata.m,76
+function hxp = xp_matrix_basicplot_cdata (xp)xp_matrix_basicplot_cdata2,1
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/library_plots/xp_corr.m,49
+function [p, rho, fit] = xp_corr(xp)xp_corr1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/library_plots/xp_pass_values.m,60
+function varargout = xp_pass_values (xp)xp_pass_values1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/functions/previewTable.m,86
+function [dt_formatted] = previewTable(data_table,col_names,maxrows)previewTable1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/functions/figl.m,45
+function varargout = figl(varargin)figl1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/functions/iscellnum.m,43
+function OUT = iscellnum(IN)iscellnum1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/functions/figformat_str.m,57
+function output = figformat_str(input)figformat_str1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/functions/Cell_2_MDDict.m,79
+function data_out = Cell_2_MDD(data,mat_ax_names,mat_ax_values)Cell_2_MDD1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/classes/@MDD/fixAxes.m,59
+function obj = fixAxes(obj, optionalFixesFlag)fixAxes1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/classes/@MDD/recursiveFunc.m,258
+function varargout = recursiveFunc(xp,function_handles,dimensions,function_arguments)recursiveFunc2,1
+function dimensions = dimensions_regex_2_index(xp,dimensions)dimensions_regex_2_index158,6417
+function out = findaxis_mod(xp,str)findaxis_mod188,7298
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/classes/@MDD/importFile.m,88
+function obj = importFile(obj, filePath, dataCol, headerFlag, delimiter)importFile1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/classes/@MDD/checkDims.m,70
+function varargout = checkDims(obj, optionalChecksFlag)checkDims1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/classes/@MDD/recursivePlot.m,63
+function varargout = recursivePlot(varargin)recursivePlot1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/classes/@MDD/mergeDims.m,55
+function obj = mergeDims(obj,dims2merge)mergeDims1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/classes/@MDD/linearMerge.m,75
+function obj_out = linearMerge(obj1, obj2, forceMergeBool)linearMerge1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/classes/@MDD/importDataTable.m,114
+function obj = importDataTable(obj, data_column, axis_val_columns, axis_names, overwriteBool)importDataTable1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/classes/@MDD/importData.m,75
+function obj = importData(obj, data, axis_vals, axis_names)importData1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/classes/@MDD/calcClasses.m,74
+function [out, outsimple] = calcClasses(input,field_type)calcClasses1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/classes/@MDD/unpackDim.m,91
+function obj_new = unpackDim(obj, dim_src, dim_target, dim_name, dim_values)unpackDim1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/classes/@MDD/recursiveFunc_2.m,262
+function varargout = recursiveFunc_2(xp,function_handles,dimensions,function_arguments)recursiveFunc_22,1
+function dimensions = dimensions_regex_2_index(xp,dimensions)dimensions_regex_2_index158,6419
+function out = findaxis_mod(xp,str)findaxis_mod188,7300
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/classes/@MDD/packDim.m,59
+function obj = packDim(obj,dim_src,dim_target)packDim1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/classes/@MDD/MDD.m,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/classes/@MDD/subset.m,426
+function [obj2, ro] = subset(obj,varargin)subset1,0
+function [obj, selection] = fix_selection(obj,selection,numericsAsValuesFlag)fix_selection49,1662
+function [selection, ro] = selection2sub(obj,selection,numericsAsValuesFlag)selection2sub184,7294
+function [obj2, ro] = subset_core(obj,selection, numericsAsValuesFlag)subset_core286,11067
+function inds = linearize_inds(selection,sz_dat,Ndat)linearize_inds327,12280
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/classes/@MDD/merge.m,74
+function obj_out = merge(obj1, obj2, forceMergeBool, debugBool)merge1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/classes/@MDD/recursiveFunc_1.m,258
+function varargout = recursiveFunc(xp,function_handles,dimensions,function_arguments)recursiveFunc1,0
+function dimensions = dimensions_regex_2_index(xp,dimensions)dimensions_regex_2_index126,4887
+function out = findaxis_mod(xp,str)findaxis_mod153,5733
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/classes/MDDAxis.m,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/classes/MDDRef.m,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MDD/tutorial_MDD.m,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/unique_wrapper.m,70
+function [out,IA,IB] = unique_wrapper(in,varargin)unique_wrapper1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/toString.m,442
+function str = toString(var, varargin)toString1,0
+function str = prepend_space(fw, str)    prepend_space531,15795
+function str = make_block(key, value)make_block541,16108
+function list = right_align(list)right_align551,16321
+function str = center(str, rows,cols)        center558,16513
+function list = append_string(list, string)    append_string577,16969
+function str = append_list(var, str,list,numDigits)append_list587,17225
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/arrayfunu.m,55
+function varargout = arrayfunu(varargin)arrayfunu1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/subplot_grid/subplot_grid.m,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/Octave/unique_octave.m,71
+function [y, i, j] = unique_octave (x, varargin)unique_octave47,2036
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/Octave/rng_octave.m,63
+function [rand_seed,randn_seed] = rng_octave(x)rng_octave1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/getLinearIndependent.m,105
+function [Abasis, Abasisi, Asub]= getLinearIndependent(A,ignore_constant_shift)getLinearIndependent2,1
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/uniqueCellGeneralized.m,79
+function [C,ia,ic] = uniqueCellGeneralized(varargin)uniqueCellGeneralized1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/setprod.m,43
+function C = setprod(varargin)setprod1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/isfunction/isfunction.m,116
+function [TF, ID] = isfunction(FUN)isfunction1,0
+function ID = local_isfunction(FUNNAME)local_isfunction49,1676
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/tight_subplot.m,75
+function ha = tight_subplot(Nh, Nw, gap, marg_h, marg_w)tight_subplot1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/m2html/templates/blue/doxysearch.php,3069
+function readInt($file)readInt16,529
+  $b1 = ord(fgetc($file)); $b2 = ord(fgetc($file));b118,555
+  $b3 = ord(fgetc($file)); $b4 = ord(fgetc($file));b319,607
+function readString($file)readString23,705
+  $result="";result25,734
+function readHeader($file)readHeader30,813
+    $header =fgetc($file); $header.=fgetc($file);header32,842
+function computeIndex($word)computeIndex37,965
+  $hi = ord($word{0});hi41,1058
+  $lo = ord($word{1});lo44,1133
+function search($file,$word,&$statsList)search50,1224
+  $index = computeIndex($word);index52,1267
+    $index = readInt($file);index56,1407
+      $start=sizeof($statsList);start59,1503
+      $count=$start;count60,1536
+      $w = readString($file);w62,1584
+        $statIdx = readInt($file);statIdx65,1639
+        $w = readString($file);w76,2006
+      $totalFreq=0;totalFreq78,2046
+        $statInfo = &$statsList[$count];statInfo81,2135
+        $numDocs = readInt($file);numDocs83,2218
+        $docInfo = array();docInfo84,2253
+          $idx=readInt($file); idx88,2388
+          $freq=readInt($file); freq89,2420
+        $statInfo = &$statsList[$count];statInfo105,2970
+          $docInfo = &$statInfo["docs"];docInfo108,3074
+function combine_results($results,&$docs)combine_results119,3320
+    $docsList = &$wordInfo["docs"];docsList123,3402
+      $key=$di["url"];key126,3475
+      $rank=$di["rank"];rank127,3498
+function normalize_ranking(&$docs)normalize_ranking150,4036
+  $maxRank = 0.0000001;maxRank152,4073
+      $maxRank=$doc["rank"];maxRank158,4191
+function filter_results($docs,&$requiredWords,&$forbiddenWords)filter_results169,4364
+  $filteredDocs=array();filteredDocs171,4430
+    $words = &$docs[$key]["words"];words174,4503
+    $copy=1; // copy entry by defaultcopy175,4539
+        $found=0;found180,4668
+          $found = $wordInfo["word"]==$reqWord;found183,4735
+          $copy=0; // document contains none of the required wordscopy188,4854
+          $copy=0; // document contains a forbidden wordcopy199,5114
+function compare_rank($a,$b)compare_rank209,5291
+function sort_results($docs,&$sorted)sort_results214,5369
+  $sorted = $docs;sorted216,5409
+function report_results(&$docs)report_results221,5482
+  $numDocs = sizeof($docs);numDocs227,5656
+    $num=1;num241,5966
+        $word = $wordInfo["word"];word251,6305
+        $matchRight = substr($wordInfo["match"],strlen($word));matchRight252,6340
+function matches_text($num)matches_text263,6574
+function main($idxfile)main279,6878
+  $query="";query293,7206
+    $query=$_GET["query"];query296,7263
+  $results = array();results298,7294
+  $requiredWords = array();requiredWords299,7316
+  $forbiddenWords = array();forbiddenWords300,7344
+  $foundWords = array();foundWords301,7373
+  $word=strtolower(strtok($query," "));word302,7398
+    $word=strtolower(strtok(" "));word312,7761
+  $docs = array();docs314,7800
+  $filteredDocs = filter_results($docs,$requiredWords,$forbiddenWords);filteredDocs318,7943
+  $sorted = array();sorted322,8144
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/m2html/templates/3frames/index.html,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/m2html/templates/frame/index.html,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/m2html/templates/frame/doxysearch.php,3069
+function readInt($file)readInt16,529
+  $b1 = ord(fgetc($file)); $b2 = ord(fgetc($file));b118,555
+  $b3 = ord(fgetc($file)); $b4 = ord(fgetc($file));b319,607
+function readString($file)readString23,705
+  $result="";result25,734
+function readHeader($file)readHeader30,813
+    $header =fgetc($file); $header.=fgetc($file);header32,842
+function computeIndex($word)computeIndex37,965
+  $hi = ord($word{0});hi41,1058
+  $lo = ord($word{1});lo44,1133
+function search($file,$word,&$statsList)search50,1224
+  $index = computeIndex($word);index52,1267
+    $index = readInt($file);index56,1407
+      $start=sizeof($statsList);start59,1503
+      $count=$start;count60,1536
+      $w = readString($file);w62,1584
+        $statIdx = readInt($file);statIdx65,1639
+        $w = readString($file);w76,2006
+      $totalFreq=0;totalFreq78,2046
+        $statInfo = &$statsList[$count];statInfo81,2135
+        $numDocs = readInt($file);numDocs83,2218
+        $docInfo = array();docInfo84,2253
+          $idx=readInt($file); idx88,2388
+          $freq=readInt($file); freq89,2420
+        $statInfo = &$statsList[$count];statInfo105,2970
+          $docInfo = &$statInfo["docs"];docInfo108,3074
+function combine_results($results,&$docs)combine_results119,3320
+    $docsList = &$wordInfo["docs"];docsList123,3402
+      $key=$di["url"];key126,3475
+      $rank=$di["rank"];rank127,3498
+function normalize_ranking(&$docs)normalize_ranking150,4036
+  $maxRank = 0.0000001;maxRank152,4073
+      $maxRank=$doc["rank"];maxRank158,4191
+function filter_results($docs,&$requiredWords,&$forbiddenWords)filter_results169,4364
+  $filteredDocs=array();filteredDocs171,4430
+    $words = &$docs[$key]["words"];words174,4503
+    $copy=1; // copy entry by defaultcopy175,4539
+        $found=0;found180,4668
+          $found = $wordInfo["word"]==$reqWord;found183,4735
+          $copy=0; // document contains none of the required wordscopy188,4854
+          $copy=0; // document contains a forbidden wordcopy199,5114
+function compare_rank($a,$b)compare_rank209,5291
+function sort_results($docs,&$sorted)sort_results214,5369
+  $sorted = $docs;sorted216,5409
+function report_results(&$docs)report_results221,5482
+  $numDocs = sizeof($docs);numDocs227,5656
+    $num=1;num241,5966
+        $word = $wordInfo["word"];word251,6305
+        $matchRight = substr($wordInfo["match"],strlen($word));matchRight252,6340
+function matches_text($num)matches_text263,6574
+function main($idxfile)main279,6878
+  $query="";query293,7206
+    $query=$_GET["query"];query296,7263
+  $results = array();results298,7294
+  $requiredWords = array();requiredWords299,7316
+  $forbiddenWords = array();forbiddenWords300,7344
+  $foundWords = array();foundWords301,7373
+  $word=strtolower(strtok($query," "));word302,7398
+    $word=strtolower(strtok(" "));word312,7761
+  $docs = array();docs314,7800
+  $filteredDocs = filter_results($docs,$requiredWords,$forbiddenWords);filteredDocs318,7943
+  $sorted = array();sorted322,8144
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/m2html/templates/brain/index.html,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/m2html/templates/brain/doxysearch.php,3069
+function readInt($file)readInt16,529
+  $b1 = ord(fgetc($file)); $b2 = ord(fgetc($file));b118,555
+  $b3 = ord(fgetc($file)); $b4 = ord(fgetc($file));b319,607
+function readString($file)readString23,705
+  $result="";result25,734
+function readHeader($file)readHeader30,813
+    $header =fgetc($file); $header.=fgetc($file);header32,842
+function computeIndex($word)computeIndex37,965
+  $hi = ord($word{0});hi41,1058
+  $lo = ord($word{1});lo44,1133
+function search($file,$word,&$statsList)search50,1224
+  $index = computeIndex($word);index52,1267
+    $index = readInt($file);index56,1407
+      $start=sizeof($statsList);start59,1503
+      $count=$start;count60,1536
+      $w = readString($file);w62,1584
+        $statIdx = readInt($file);statIdx65,1639
+        $w = readString($file);w76,2006
+      $totalFreq=0;totalFreq78,2046
+        $statInfo = &$statsList[$count];statInfo81,2135
+        $numDocs = readInt($file);numDocs83,2218
+        $docInfo = array();docInfo84,2253
+          $idx=readInt($file); idx88,2388
+          $freq=readInt($file); freq89,2420
+        $statInfo = &$statsList[$count];statInfo105,2970
+          $docInfo = &$statInfo["docs"];docInfo108,3074
+function combine_results($results,&$docs)combine_results119,3320
+    $docsList = &$wordInfo["docs"];docsList123,3402
+      $key=$di["url"];key126,3475
+      $rank=$di["rank"];rank127,3498
+function normalize_ranking(&$docs)normalize_ranking150,4036
+  $maxRank = 0.0000001;maxRank152,4073
+      $maxRank=$doc["rank"];maxRank158,4191
+function filter_results($docs,&$requiredWords,&$forbiddenWords)filter_results169,4364
+  $filteredDocs=array();filteredDocs171,4430
+    $words = &$docs[$key]["words"];words174,4503
+    $copy=1; // copy entry by defaultcopy175,4539
+        $found=0;found180,4668
+          $found = $wordInfo["word"]==$reqWord;found183,4735
+          $copy=0; // document contains none of the required wordscopy188,4854
+          $copy=0; // document contains a forbidden wordcopy199,5114
+function compare_rank($a,$b)compare_rank209,5291
+function sort_results($docs,&$sorted)sort_results214,5369
+  $sorted = $docs;sorted216,5409
+function report_results(&$docs)report_results221,5482
+  $numDocs = sizeof($docs);numDocs227,5656
+    $num=1;num241,5966
+        $word = $wordInfo["word"];word251,6305
+        $matchRight = substr($wordInfo["match"],strlen($word));matchRight252,6340
+function matches_text($num)matches_text263,6574
+function main($idxfile)main279,6878
+  $query="";query293,7206
+    $query=$_GET["query"];query296,7263
+  $results = array();results298,7294
+  $requiredWords = array();requiredWords299,7316
+  $forbiddenWords = array();forbiddenWords300,7344
+  $foundWords = array();foundWords301,7373
+  $word=strtolower(strtok($query," "));word302,7398
+    $word=strtolower(strtok(" "));word312,7761
+  $docs = array();docs314,7800
+  $filteredDocs = filter_results($docs,$requiredWords,$forbiddenWords);filteredDocs318,7943
+  $sorted = array();sorted322,8144
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/m2html/mwizard.m,1887
+function mwizard(file)mwizard1,0
+function h = initWindowinitWindow63,2052
+function buildWindow(h)buildWindow76,2423
+function doClose(fig,evd,h)doClose589,17189
+function doNewFile(fig,evd,h)doNewFile595,17274
+function doOpenFile(fig,evd,h)doOpenFile604,17454
+function status = doSaveFile(fig,evd,h)doSaveFile617,17841
+function status = doSaveAsFile(fig,evd,h)doSaveAsFile628,18084
+function doRunFile(fig,evd,h)doRunFile637,18350
+function status = doCheckSave(h)doCheckSave649,18794
+function doHelp(fig,evd,h)doHelp664,19183
+function varargout = initOptions(h)initOptions675,19635
+function refreshOptions(h)refreshOptions704,20282
+function doInitHTMLDir(fig,evd,h)doInitHTMLDir748,22279
+function doInitTpl(fig,evd,h)doInitTpl757,22581
+function doInitGraphs(fig,evd,h)doInitGraphs804,24117
+function doSetMfiles(fig,evd,h)doSetMfiles825,24854
+function doSetRecursive(fig,evd,h)doSetRecursive851,25655
+function doSetOutputDir(fig,evd,h)doSetOutputDir860,25976
+function doSetIndex(fig,evd,h)doSetIndex865,26108
+function doSetExtension(fig,evd,h)doSetExtension870,26239
+function doSetTemplate(fig,evd,h)doSetTemplate879,26432
+function doSetSource(fig,evd,h)doSetSource890,26808
+function doSetHighlight(fig,evd,h)doSetHighlight895,26935
+function doSetGraph(fig,evd,h)doSetGraph900,27077
+function doSetSearch(fig,evd,h)doSetSearch905,27202
+function doSetGlobal(fig,evd,h)doSetGlobal910,27329
+function doSetDownload(fig,evd,h)doSetDownload915,27470
+function doSetTodo(fig,evd,h)doSetTodo920,27601
+function doSetVerbose(fig,evd,h)doSetVerbose925,27724
+function doSetSaveAsMat(fig,evd,h)doSetSaveAsMat930,27853
+function doSetLoadMat(fig,evd,h)doSetLoadMat935,27981
+function doSetTabs(fig,evd,h)doSetTabs945,28278
+function doSetNbColumns(fig,evd,h)doSetNbColumns955,28500
+function text2 = shortenText(text, l)shortenText962,28707
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/m2html/@template/display.m,34
+function display(tpl)display1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/m2html/@template/set.m,48
+function tpl = set(tpl,action,varargin)set1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/m2html/@template/private/finish.m,47
+function str = finish(str,unknowns)finish1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/m2html/@template/private/subst.m,50
+function [tpl, str] = subst(tpl,handle)subst1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/m2html/@template/private/loadtpl.m,47
+function tpl = loadtpl(tpl,handle)loadtpl1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/m2html/@template/char.m,32
+function s = char(tpl)char1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/m2html/@template/get.m,54
+function varargout = get(tpl,action,varargin)get1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/m2html/@template/parse.m,64
+function [tpl, str] = parse(tpl,target,handle,append)parse1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/m2html/@template/template.m,52
+function tpl = template(root,unknowns)template1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/m2html/private/doxywrite.m,160
+function doxywrite(filename, kw, statinfo, docinfo)doxywrite1,0
+function writeString(fid, s)writeString120,3364
+function writeInt(fid, i)writeInt126,3519
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/m2html/private/doxysearch.m,547
+function result = doxysearch(query,filename)doxysearch1,0
+function res = searchAgain(fid, word,res)searchAgain91,2732
+function docs = combineResults(result)combineResults150,4671
+function filtdocs = filterResults(docs,requiredWords,forbiddenWords)filterResults176,5586
+function docs = normalizeResults(docs);normalizeResults214,6634
+function result = sortResults(docs);sortResults222,6853
+function i = computeIndex(word)computeIndex235,7228
+function s = readString(fid)readString244,7453
+function i = readInt(fid)readInt254,7658
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/m2html/private/mfileparse.m,69
+function s = mfileparse(mfile, mdirs, names, options)mfileparse1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/m2html/private/strtok.m,78
+function [token, remainder, quotient] = strtok(string, delimiters)strtok1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/m2html/private/doxyread.m,153
+function [statlist, docinfo] = doxyread(filename)doxyread1,0
+function s = readString(fid)readString89,2821
+function i = readInt(fid)readInt99,3026
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/m2html/private/openfile.m,58
+function fid = openfile(filename,permission)openfile1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/m2html/private/splitcode.m,48
+function splitc = splitcode(code)splitcode1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/m2html/private/searchindex.m,63
+function [s, freq] = searchindex(mfile, szmin)searchindex1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/m2html/private/mexexts.m,47
+function [ext, platform] = mexextsmexexts1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/m2html/Contents.m,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/m2html/m2html.m,568
+function m2html(varargin)m2html1,0
+function mfiles = getmfiles(mdirs, mfiles, recursive, ignoredDir)getmfiles1296,45570
+function calldot(dotexec, mdotfile, mapfile, pngfile, opt)calldot1332,46733
+function s = backtomaster(mdir)backtomaster1353,47620
+function ldir = splitpath(p)splitpath1360,47854
+function name = extractname(synopsis)extractname1377,48238
+function f = fullurl(varargin)fullurl1395,48796
+function str = escapeblank(str)escapeblank1401,49013
+function str = entity(str)entity1408,49238
+function str = horztab(str,n)horztab1418,49568
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/m2html/mwizard2.m,1958
+function mwizard(file)mwizard1,0
+function h = initWindowinitWindow64,2062
+function buildWindow(h)buildWindow77,2433
+function doClose(fig,evd,h)doClose635,18488
+function doNewFile(fig,evd,h)doNewFile641,18573
+function doOpenFile(fig,evd,h)doOpenFile650,18753
+function status = doSaveFile(fig,evd,h)doSaveFile663,19140
+function status = doSaveAsFile(fig,evd,h)doSaveAsFile674,19383
+function doRunFile(fig,evd,h)doRunFile685,19723
+function status = doCheckSave(h)doCheckSave697,20167
+function doHelp(fig,evd,h)doHelp712,20556
+function varargout = initOptions(h)initOptions723,21008
+function refreshOptions(h)refreshOptions752,21655
+function doInitHTMLDir(fig,evd,h)doInitHTMLDir796,23658
+function doInitTpl(fig,evd,h)doInitTpl805,23925
+function doInitGraphs(fig,evd,h)doInitGraphs852,25469
+function doBrowseButton(fig,evd,h)doBrowseButton873,26206
+function doSelectMfiles(fig,evd,h)doSelectMfiles904,27169
+function doSetRecursive(fig,evd,h)doSetRecursive924,27743
+function doSetOutputDir(fig,evd,h)doSetOutputDir933,28064
+function doSetIndex(fig,evd,h)doSetIndex938,28196
+function doSetExtension(fig,evd,h)doSetExtension943,28327
+function doSetTemplate(fig,evd,h)doSetTemplate952,28520
+function doSetSource(fig,evd,h)doSetSource963,28896
+function doSetHighlight(fig,evd,h)doSetHighlight968,29023
+function doSetGraph(fig,evd,h)doSetGraph973,29165
+function doSetSearch(fig,evd,h)doSetSearch978,29290
+function doSetGlobal(fig,evd,h)doSetGlobal983,29417
+function doSetDownload(fig,evd,h)doSetDownload988,29558
+function doSetTodo(fig,evd,h)doSetTodo993,29689
+function doSetVerbose(fig,evd,h)doSetVerbose998,29812
+function doSetSaveAsMat(fig,evd,h)doSetSaveAsMat1003,29941
+function doSetLoadMat(fig,evd,h)doSetLoadMat1008,30069
+function doSetTabs(fig,evd,h)doSetTabs1018,30366
+function doSetNbColumns(fig,evd,h)doSetNbColumns1028,30588
+function text2 = shortenText(text, l)shortenText1035,30795
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/m2html/mdot.m,87
+function mdot(mmat, dotfile,f)mdot1,0
+function f = fullurl(varargin)fullurl90,2369
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/UIverlessthan.m,165
+function result = UIverlessthan (ref_version);UIverlessthan1,0
+function [versionNoDots,versionNoDots2] = versionReplaceDots(versionDots)versionReplaceDots15,444
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/ear/lscell.m,73
+function dirList = lscell(arg, removePathBool, recursiveBool)lscell1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/ear/mkdirSilent.m,71
+function varargout = mkdirSilent(output_path,varargin)mkdirSilent1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/ear/saveWithStack.m,51
+function saveWithStack(varargin)saveWithStack1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/ear/getCallerCode.m,67
+function callerCode = getCallerCode(stackNumber)getCallerCode1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/ear/wprintf.m,39
+function wprintf(varargin)wprintf1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/ear/fileparts2.m,64
+function [pathstr, name, ext] = fileparts2(file)fileparts21,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/ear/getAbsolutePath.m,80
+function [pathOut, pathInAbsBool] = getAbsolutePath(pathIn)getAbsolutePath1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/ear/tight_subplot2.m,83
+function ha = tight_subplot2(Nh, Nw, gap, marg_h, marg_w, hFig)tight_subplot21,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/ear/mfileFnName.m,46
+function fnName = mfileFnNamemfileFnName1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/ear/thisMfileDir.m,51
+function dirPath = thisMfileDir()thisMfileDir1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/ear/isassigned.m,56
+function returnBool = isassigned(varStr)isassigned1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/ear/getStackCode.m,53
+function stackCode = getStackCode()getStackCode1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/ear/isValidFigHandle.m,62
+function validBool = isValidFigHandle(h)isValidFigHandle1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/ear/rls.m,50
+function fileList = rls(arg, relPathBool)rls1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/cellstr2num.m,44
+function m = cellstr2num(c)cellstr2num1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/vars_pull.m,50
+function vars_pull(s,chosen_fields)vars_pull1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/cellfunu.m,54
+function varargout = cellfunu (varargin)cellfunu1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/plot2svg.m,4016
+function varargout = plot2svg(filename, id, debug, legendicons, clippingmode, figuresize, pixelfiletype)plot2svg1,0
+function clippingIdString = clipping2svg(fid, id, ax, paperpos, axpos, projection, clippingIdString)clipping2svg305,13579
+function [angle, align] = improvedXLabel(id, angle, align)improvedXLabel351,15544
+function [angle, align] = improvedYLabel(id, angle, align)improvedYLabel368,16003
+function [angle, align] = improvedZLabel(id, angle, align)improvedZLabel385,16462
+function animation2svg(fid, id)animation2svg402,16921
+function [filterString, boundingBox] = filter2svg(fid, id, boundingBoxAxes, boundingBoxElement)filter2svg452,20118
+function printAttributeArray(fid, names, svgstruct, svgfield)printAttributeArray669,36729
+function printAttributeDouble(fid, name, svgstruct, svgfield, default)printAttributeDouble692,37444
+function printAttributeIn(fid, name, svgstruct, svgfield, default, resultStrings)printAttributeIn708,37908
+function printAttributeString(fid, name, svgstruct, svgfield, default)printAttributeString729,38705
+function printAttributeList(fid, name, svgstruct, svgfield, list, default)printAttributeList745,39161
+function printAttributeColor(fid, name, svgstruct, svgfield, default)printAttributeColor767,39947
+function frontTicks(fid, x, y, scolorname, linewidth, tick, index, edge_neighbours, c, valid_ticks, ticklength, tick_ratio, lim, drawBorder)frontTicks787,40587
+function gridLines(fid, x, y, scolorname, gridlinestyle, linewidth, axlim, axtick, axindex_inner, corners, c, gridAlpha)gridLines807,42035
+function minorGridLines(fid, x, y, scolorname, minor_gridlinestyle, linewidth, axlim, minor_axtick, corners, c, gridAlpha)minorGridLines820,42763
+function group = axes2svg(fid,id,ax,group,paperpos)axes2svg835,43657
+function boundingBoxAxes = axchild2svg(fid,id,axIdString,ax,paperpos,axchild,axpos,groupax,projection,boundingBoxAxes)axchild2svg1492,78599
+function [barCenters,barWidth] = groupBarProperties(currentBarSetNumber,barCenters,numGroups,barWidth)groupBarProperties2592,142258
+function result = selectColor(axchild, id, p, q, points, pointc, colorname, faces, type)selectColor2602,142683
+function patch2svg(fid,xtot,ytot,scolorname,style,width, edgecolorname, face_opacity, edge_opacity, closed)patch2svg2633,143716
+function gouraud_patch2svg(fid,xtot,ytot,cdata,style,width, edgecolorname, face_opacity, edge_opacity,id)gouraud_patch2svg2705,148048
+function patternString = lineStyle2svg(lineStyle, lineWidth)lineStyle2svg2784,152428
+function line2svg(fid, x, y, scolorname, style, width, linejoin, strokeopacity)line2svg2801,153505
+function circle2svg(fid,x,y,radius,markeredgecolorname,markerfacecolorname,width)circle2svg2853,155672
+function control2svg(fid,id,ax,paperpos)control2svg2864,156361
+function text2svg(fid,axpos,paperpos,id,ax,projection)text2svg2907,158162
+function exponent2svg(fid,axpos,paperpos,ax,axxtick,axytick,axztick)exponent2svg2972,160945
+function label2svg(fid,axpos,id,x,y,tex,align,angle,valign,lines,font_color)label2svg3100,166600
+function returnvalue = latex2svg(StringText)latex2svg3334,176117
+function StringText = singleLatex2svg(StringText)singleLatex2svg3412,179874
+function name = searchcolor(~,value)searchcolor3450,181506
+function rvalue = convertunit(value, from, to, parentheight)convertunit3459,181839
+function strString = addBackSlash( strSlash)addBackSlash3492,183480
+function strExt = getFileExtension( strFileName)getFileExtension3502,183868
+function StringText = convertString(StringText)convertString3508,184157
+function IdString = createIdcreateId3602,189211
+function [projection, edges] = get_projection(ax,id)get_projection3609,189562
+function [x2,y2,z2] = project(x,y,z,projection)project3725,194131
+function [f, v, fvc, fva] = surface2patch(s)surface2patch3761,195343
+function [xlims, ylims, zlims] = AxesChildBounds(ax)AxesChildBounds3796,196228
+function RemoveDataOffLimits(dataObj,ax)RemoveDataOffLimits3856,198469
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/rng_wrapper.m,56
+function out = rng_wrapper(in,varargin)rng_wrapper1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/struct_addDef.m,72
+function s = struct_addDef(s,fieldname,default_value)struct_addDef1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/DataHash_20160618/DataHash.m,452
+function Hash = DataHash(Data, Opt)DataHash1,0
+function Engine = CoreHash(Data, Engine)CoreHash288,11630
+function FuncKey = ConvertFuncHandle(FuncH)ConvertFuncHandle355,14295
+function DataBin = ConvertObject(DataObj)ConvertObject395,16108
+function Out = fBase64_enc(In)fBase64_enc415,16782
+function Ex = FileExist_L(FileName)FileExist_L432,17423
+function R = Version_L()Version_L444,17705
+function Error_L(ID, varargin)Error_L479,19035
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/vars_push.m,40
+function s = vars_push()vars_push3,68
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/Coverage/Coverage/coverage_example.m,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/Coverage/Coverage/src/+edu/+stanford/+covert/+test/Coverage.m,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/Coverage/Coverage/lib/absolutepath/relativepath.m,133
+function  rel_path = relativepath( tgt_path, act_path )relativepath1,0
+function  path_cell = pathparts(path_str)pathparts92,2644
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/Coverage/Coverage/lib/absolutepath/absolutepath.m,99
+function  abs_path = absolutepath( rel_path, act_path, throwErrorIfFileNotExist )absolutepath1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/eksr.m,34
+function r=eksr(x,y,h,N)eksr1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/ksr.m,32
+function r=ksr(x,y,h,N)ksr1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/lsmooth.m,40
+function ys=lsmooth(y,span)lsmooth1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/github-sync-matlab/private/makeHyperlink.m,70
+function hyperlink = makeHyperlink(text, codeToRun)makeHyperlink1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/github-sync-matlab/private/makeWeblinkCode.m,64
+function weblinkCode = makeWeblinkCode(url)makeWeblinkCode1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/github-sync-matlab/githubSync.m,797
+function githubSync(dependencies, varargin)githubSync1,0
+function cloneOrUpdateDependency(url)cloneOrUpdateDependency54,1394
+function displayDependencyToCommandWindow(url)displayDependencyToCommandWindow65,1773
+function repoName = getRepoNameFromUrl(url)getRepoNameFromUrl69,1874
+function installPath = defineInstallPath()defineInstallPath73,1954
+function str = removeTrailingColon(str)removeTrailingColon83,2250
+function onPath = isRepoFolderOnPath(repoName)isRepoFolderOnPath89,2330
+function cloneGitHubRepo(repoAddress, installPath)cloneGitHubRepo93,2418
+function updateGitHubRepo(installPath,repoName)updateGitHubRepo103,2610
+function repoPath = findPathContainingRepo(repoName)findPathContainingRepo113,2835
+function delimiter = systemDelimiter()systemDelimiter136,3623
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MapN/memoize.m,39
+function fmem = memoize(f)memoize1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/MapN/MapN.m,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/nwGaussKernelRegr.m,95
+function [inst_rate,time] = nwGaussKernelRegr(time,raster,pop,kwidth,Ts)nwGaussKernelRegr1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/mtit/mtit.m,96
+function	par=mtit(varargin)mtit65,1909
+function	[off,vout]=get_off(varargin)get_off146,3395
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/displayError.m,44
+function displayError(err)displayError1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/nearest.m,47
+function [i] = nearest(array, val)nearest1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/altmany-export_fig-2763b78/pdftops.m,288
+function varargout = pdftops(cmd)pdftops1,0
+function path_ = xpdf_pathxpdf_path38,1431
+function good = check_store_xpdf_path(path_)check_store_xpdf_path125,4383
+function good = check_xpdf_path(path_)check_xpdf_path138,4814
+function cmd = xpdf_command(path_)xpdf_command152,5377
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/altmany-export_fig-2763b78/crop_borders.m,126
+function [A, vA, vB, bb_rel] = crop_borders(A, bcol, padding, crop_amounts)crop_borders1,0
+function A = col(A)col155,4938
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/altmany-export_fig-2763b78/fix_lines.m,60
+function fstrm = fix_lines(fstrm, fname2)fix_lines43,1728
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/altmany-export_fig-2763b78/print2eps.m,187
+function print2eps(name, fig, export_options, varargin)print2eps1,0
+function [StoredColors, fstrm, foundFlags] = eps_maintainAlpha(fig, fstrm, StoredColors)eps_maintainAlpha468,23097
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/altmany-export_fig-2763b78/im2gif.m,170
+function im2gif(A, varargin)im2gif44,1661
+function [A, options] = parse_args(A, varargin)parse_args86,2756
+function [A, alpha] = imread_rgb(name)imread_rgb141,4310
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/altmany-export_fig-2763b78/export_fig.m,719
+function [imageData, alpha] = export_fig(varargin)export_fig1,0
+function options = default_options()default_options845,41704
+function [fig, options] = parse_args(nout, fig, varargin)parse_args876,42833
+function A = downsize(A, factor)downsize1150,55377
+function A = rgb2grey(A)rgb2grey1177,56355
+function A = check_greyscale(A)check_greyscale1181,56517
+function eps_remove_background(fname, count)eps_remove_background1190,56808
+function b = isvector(options)isvector1218,57646
+function b = isbitmap(options)isbitmap1222,57718
+function A = make_cell(A)make_cell1227,57869
+function add_bookmark(fname, bookmark_text)add_bookmark1233,57943
+function set_tick_mode(Hlims, ax)set_tick_mode1267,58916
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/altmany-export_fig-2763b78/print2array.m,218
+function [A, bcol] = print2array(fig, res, renderer, gs_options)print2array1,0
+function [A, err, ex] = read_tif_img(fig, res_str, renderer, tmp_nam)read_tif_img209,8258
+function fp = font_path()font_path238,9455
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/altmany-export_fig-2763b78/append_pdfs.m,51
+function append_pdfs(varargin)append_pdfs38,1521
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/altmany-export_fig-2763b78/isolate_axes.m,157
+function fh = isolate_axes(ah, vis)isolate_axes1,0
+function ah = allchildren(ah)allchildren113,4388
+function ph = allancestors(ah)allancestors121,4514
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/altmany-export_fig-2763b78/using_hg2.m,46
+function tf = using_hg2(fig)using_hg215,391
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/altmany-export_fig-2763b78/eps2pdf.m,129
+function eps2pdf(source, dest, crop, append, gray, quality, gs_options)eps2pdf1,0
+function fp = font_path()font_path168,7773
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/altmany-export_fig-2763b78/ghostscript.m,280
+function varargout = ghostscript(cmd)ghostscript1,0
+function path_ = gs_pathgs_path71,3371
+function good = check_store_gs_path(path_)check_store_gs_path158,6232
+function good = check_gs_path(path_)check_gs_path172,6861
+function cmd = gs_command(path_)gs_command184,7167
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/altmany-export_fig-2763b78/read_write_entire_textfile.m,92
+function fstrm = read_write_entire_textfile(fname, fstrm)read_write_entire_textfile19,552
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/altmany-export_fig-2763b78/pdf2eps.m,46
+function pdf2eps(source, dest)pdf2eps23,719
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/altmany-export_fig-2763b78/ImageSelection.java,530
+public class ImageSelection implements Transferable {ImageSelection11,287
+    private static final DataFlavor flavors[] =flavors13,346
+    private BufferedImage image;image16,429
+    public ImageSelection(BufferedImage image) {ImageSelection18,467
+    public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException {getTransferData23,575
+    public DataFlavor[] getTransferDataFlavors() {getTransferDataFlavors30,815
+    public boolean isDataFlavorSupported(DataFlavorisDataFlavorSupported34,901
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/altmany-export_fig-2763b78/user_string.m,67
+function string = user_string(string_name, string)user_string1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dependencies/altmany-export_fig-2763b78/copyfig.m,38
+function fh = copyfig(fh)copyfig1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dsSelect.m,53
+function data = dsSelect(data,varargin)dsSelect1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dsAnalyze.m,665
+function result = dsAnalyze(src,funcIn,varargin)dsAnalyze1,0
+function [data, studyinfo] = parseSrc(src, options, varargin)parseSrc359,12229
+function [funcIn, nFunc] = parseFuncIn(funcIn)parseFuncIn444,14835
+function func = parseFunc(func)parseFunc464,15296
+function filename = filenameFromVaried(filename, func, data, plotFnBool, options, varargin)filenameFromVaried479,15696
+function result = evalFnWithArgs(fInd, data, func, options, varargin)evalFnWithArgs527,17198
+function data = loadDataFromSingleSim(simID, options, varargin)loadDataFromSingleSim573,18764
+function result = add_modifications(result, data, varargin)add_modifications597,19304
+
+/home/wintermute/rep/s1-dynasim/functions/dsPlot2.m,1030
+function [handles,xp] = dsPlot2(data,varargin)dsPlot21,0
+function_handles = function_handles(available_dims);function_handles648,25802
+function_args = function_args(available_dims);function_args650,25896
+function var_out = getdefaultstatevar(xp)getdefaultstatevar670,26497
+function [chosen_varied, options_varied ]= get_chosen_varied(varied_names,options_varied)get_chosen_varied709,27652
+function str_out = variedN_to_axisnames(str_in,ax_names_varied)variedN_to_axisnames736,28451
+function ax_ind_varied = findaxis_varied(xp)findaxis_varied748,28847
+function dimensions = get_dimensions(ax_names,dims_per_function_handle)get_dimensions763,29428
+function xp2 = reduce_dims(xp2,maxNplotdims)reduce_dims778,29864
+function varied_names = only_varieds(xp)only_varieds789,30132
+function varied_names = only_varieds_old_deleteme(all_names)only_varieds_old_deleteme798,30399
+function mydata_out = do_shift_lastdim (mydata,shift)do_shift_lastdim806,30714
+function leg1 = setup_legends(xp2)setup_legends842,32164
+
+/home/wintermute/rep/s1-dynasim/functions/dsImport.m,65
+function [data,studyinfo] = dsImport(file,varargin)dsImport1,0
+
+/home/wintermute/rep/s1-dynasim/functions/dynasim.m,2033
+function dynasim(spec)dynasim10,272
+function InitializeMainGUI % (todo: called by GUI Launcher)InitializeMainGUI191,8237
+function UpdatePopControls(src,evnt)UpdatePopControls290,19849
+function UpdateMechanismEditor(src,evnt)UpdateMechanismEditor358,24188
+function UpdateMechanismFunctions(src,evnt,limflag)UpdateMechanismFunctions426,27245
+functions=eqns(idx);eqns450,28220
+function UpdateConControls(src,evnt)UpdateConControls491,29964
+function UpdateModel(src,evnt,aux_callback)UpdateModel573,34037
+function UpdatePopSelection(src,evnt)UpdatePopSelection631,35826
+function UpdateViews(update_what)UpdateViews642,36090
+function UpdateEqnView(src,evnt)UpdateEqnView658,36503
+function InitializeSimView(src,evnt)InitializeSimView689,37765
+function UpdateSimView(src,evnt)UpdateSimView802,49251
+function UpdateSimPlots(src,evnt)UpdateSimPlots885,52660
+function AutoscaleSimPlot(src,evnt,plot_index)AutoscaleSimPlot942,55634
+function AutoscaleMechPlot(src,evnt)AutoscaleMechPlot986,57081
+function ZoomFunction(src,evnt)ZoomFunction999,57493
+function plot_Y=SelectPlotData(plot_index)SelectPlotData1039,58956
+function RunSim(src,evnt)RunSim1078,60244
+function QuickSim(src,evnt)QuickSim1140,62041
+function cfg=data2cfg(data)data2cfg1166,62954
+function AddPopulation(src,evnt,base_pop_index)AddPopulation1192,63808
+function RemovePopulation(src,evnt,base_pop_index)RemovePopulation1210,64540
+function RenamePopulation(src,evnt)RenamePopulation1236,65384
+function RenameMechanism(src,evnt)RenameMechanism1267,66394
+function SaveModel(src,evnt)SaveModel1319,68066
+function OpenModel(src,evnt)OpenModel1333,68544
+function eqns=dsExtractModelStrings(MODEL,display_mode,display_flag)dsExtractModelStrings1368,69583
+function undo(src,evnt)undo1559,75657
+function DrawStudyInfo(src,evnt)DrawStudyInfo1585,76142
+function DeleteSimSet(src,evnt,index)DeleteSimSet1726,87682
+function CopySimSet(src,evnt,index)CopySimSet1731,87832
+function RunSimStudy(src,evnt)RunSimStudy1737,87995
+
+/home/wintermute/rep/s1-dynasim/docs/online_function_reference.html,0
+
+/home/wintermute/rep/s1-dynasim/docs/online_documentation.html,0
+
+/home/wintermute/rep/s1-dynasim/demos/dsDemos.m,0
+
+/home/wintermute/rep/s1-dynasim/demos/examples/dsHarmonicOscillator.m,0
+
+/home/wintermute/rep/s1-dynasim/demos/examples/dsReactionDiffusion2D.m,0
+
+/home/wintermute/rep/s1-dynasim/demos/examples/Multicompartment_PFC_neurons/Multicompartment_PFC_neurons.m,0
+
+/home/wintermute/rep/s1-dynasim/demos/examples/dsLIFnetwork.m,0
+
+/home/wintermute/rep/s1-dynasim/demos/examples/dsMulticompartmentNeurons.m,0
+
+/home/wintermute/rep/s1-dynasim/demos/examples/dsShuntingNetwork2D.m,0
+
+/home/wintermute/rep/s1-dynasim/demos/dsTutorial.m,0
+
+/home/wintermute/rep/s1-dynasim/demos/setupDynaSimPath.m,0

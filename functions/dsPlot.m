@@ -161,7 +161,7 @@ options=dsCheckOptions(varargin,{...
   'max_num_overlaid',50,[],...
   'max_num_rows',20,[],...
   'plot_mode','trace',{'trace','image'},...
-  'plot_type','waveform',{'waveform','rastergram','raster','power','rates'},...
+  'plot_type','waveform',{'waveform','rastergram','raster','power','rates', 'coupling'},...
   'xlim',[],[],...
   'ylim',[],[],...
   'figwidth',[1],[],...
@@ -311,6 +311,16 @@ switch options.plot_type
   case 'power'      % plot VARIABLE_Power_SUA.Pxx
     if any(cellfun(@isempty,regexp(var_fields,'.*_Power_SUA$')))
       data=dsCalcPower(data,varargin{:});
+    end
+    xdata=data(1).([var_fields{1} '_Power_SUA']).frequency;
+    xlab='frequency (Hz)'; % x-axis label
+    % set default x-limits for power spectrum
+    if isempty(options.xlim)
+      options.xlim=[0 200]; % Hz
+    end
+  case 'coupling'      % plot VARIABLE_Power_SUA.Pxx
+    if any(cellfun(@isempty,regexp(var_fields,'.*_Power_SUA$')))
+      data=dsCalcCoupling(data,varargin{:});
     end
     xdata=data(1).([var_fields{1} '_Power_SUA']).frequency;
     xlab='frequency (Hz)'; % x-axis label
@@ -473,6 +483,7 @@ for figset=1:num_fig_sets
         % what to plot
         % -----------------------------------------------------------------
 
+        % AES: only Coupling usage needed for this case?
         if num_sims==1 && num_pops==1 && num_vars==1 && ~lock_gca
         % -----------------------------------------------------------------
           % one cell per row: dat = data(s=1).(var)(:,c=r) where var=vars{v=1}
@@ -487,6 +498,7 @@ for figset=1:num_fig_sets
               var=[var '_Power_SUA'];
               dat=data(sim_index).(var).Pxx(:,row);
               legend_strings={'SUA','MUA'};
+            case 'coupling'
             case {'rastergram','raster'}
               set_name=regexp(var,'^([a-zA-Z0-9]+)_','tokens','once');
               allspikes{1}{1}=data(sim_index).([var '_spike_times']){row};
@@ -508,6 +520,7 @@ for figset=1:num_fig_sets
               AuxDataName={'MUA Power'};
               var=[var '_Power_SUA'];
               dat=data(sim_index).(var).Pxx;
+            case 'coupling'
             case {'rastergram','raster'}
               set_name=regexp(var,'^([a-zA-Z0-9]+)_','tokens','once');
               allspikes{1}=data(sim_index).([var '_spike_times']);
@@ -817,6 +830,7 @@ for figset=1:num_fig_sets
             else
               imagesc(dat);
             end
+          case {'coupling'}
           case {'rastergram','raster'}
             % draw spikes
             ypos=0; % y-axis position tracker
