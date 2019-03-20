@@ -74,21 +74,13 @@ options=dsCheckOptions(varargin,{...
   'auto_gen_test_data_flag',0,{0,1},...
   },false);
 
-%% auto_gen_test_data_flag argin
-if options.auto_gen_test_data_flag
-  varargs = varargin;
-  varargs{find(strcmp(varargs, 'auto_gen_test_data_flag'))+1} = 0;
-  varargs(end+1:end+2) = {'unit_test_flag',1};
-  argin = [{data}, varargs]; % specific to this function
-end
-
 data = dsCheckData(data, varargin{:});
 % note: calling dsCheckData() at beginning enables analysis function to
 % accept data matrix [time x cells] in addition to DynaSim data structure.
 
 if numel(data)>1
   % use dsAnalyzeStudy to recursively call dsCalcPower on each data set
-  data=dsAnalyzeStudy(data,@dsCalcPower,varargin{:});
+  data=dsAnalyzeStudy(data,@dsCalcCoupling,varargin{:});
   return;
 end
 
@@ -112,6 +104,25 @@ NFFT=2^(nextpow2(nsamp-1)-1);%2); % <-- use higher resolution to capture STO fre
 % WINDOW=2^(nextpow2(NFFT-1)-3);
 % NOVERLAP=[]; % spectral parameters
 NW = options.timeBandwidthProduct;
+
+% Coupling parameters
+% What kind of coupling measure to use: ONLY mi is fully supported
+options.measure = 'mi';
+% Frequencies to analyze for the phase of the "slow" or modulating signal
+options.phase_freqs = [0.01, 0.05, 0.1:0.2:2.6];
+% Frequencies to analyze for the amplitude of the "fast" or carrier signal
+options.ampl_freqs = [8:1:14];
+% Don't internally plot data
+options.plt = 'n';
+% Don't print ongoing progress of analysis
+options.waitbar = 0;
+% Width of Morlet wavelets to use for filtering, whatever?
+options.width = 7;
+% Samples to use for each time x freq bin. Note that, unlike power, this is NOT the NFFT for a single analysis run across the data, but instead this NFFT will be used for many different analyses to comprise 
+options.nfft = ceil(Fs/(diff(ph_freq_vec(1:2))));
+% Don't run any statistical significance analysis on coupling
+options.num_shf = 0;
+
 
 %% 2.0 set list of variables to process as cell array of strings
 options.variable=dsSelectVariables(data(1).labels,options.variable, varargin{:});
@@ -224,25 +235,11 @@ for v=1:length(options.variable)
     Pxx_mean_PeakFreq=PeakFreq;
     Pxx_mean_PeakArea=PeakArea;
   else
-    if ~strcmp(reportUI,'matlab') && exist('nanmean') ~= 2 % 'nanmean is not in Octave's path
-      try
-        pkg load statistics; % trying to load octave forge 'statistics' package before using nanmean function
-      catch
-        error('nanmean function is needed, please install the statistics package from Octave Forge');
-      end
-    end
     % calculate MUA
     X=detrend(nanmean(dat(t1:t2,:),2)); % detrend the data
 
-    % calculate spectral estimate
-    if ~strcmp(reportUI,'matlab') && exist('pwelch') ~= 2 % 'pwelch is not in Octave's path
-      try
-        pkg load signal; % trying to load octave forge 'signal' package before using pwelch function
-      catch
-        error('pwelch function is needed for spectral analysis in Octave, please install the signal package from Octave Forge');
-      end
-    end
     [tmpPxx,f] = pwelch(X,NFFT,[],NFFT,Fs); % calculate power
+
     if all(isnan(tmpPxx(:)))
       tmpPxx=zeros(size(tmpPxx));
     end
@@ -350,3 +347,25 @@ if options.auto_gen_test_data_flag
 
   dsUnitSaveAutoGenTestData(argin, argout);
 end
+
+%% backup of good stuff
+
+Fs = 1000/dt;
+measure = 'mi';
+ph_freq_vec = [0.01, 0.05, 0.1:0.2:2.6];
+amp_freq_vec = [8:1:14];
+plt = 'y';
+waitbar = 1;
+width = 7;
+nfft = ceil(Fs/(diff(ph_freq_vec(1:2)))); % or 200
+num_shf = 0;
+
+% If Matlab is column-major, and goes "down first then right", why
+% does it automatically create new data across columns, rather than
+% across rows???
+tic
+[pacmat, freqvec_ph, freqvec_amp, pmat, pac_angles] = ...
+    find_pac_shf(tMaxSignal', Fs,  measure, tMaxSignal', ...
+    ph_freq_vec, amp_freq_vec, plt, waitbar, width, nfft, ...
+    num_shf);
+toc
