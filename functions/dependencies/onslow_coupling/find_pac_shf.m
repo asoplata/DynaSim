@@ -115,7 +115,7 @@ alpha = alpha/(xbins*ybins); % Uncomment to use Bonferonni Correction
 % Each cell array element of ph_filt_signals and amp_filt_signals has the
 % same dimensions as the original signals i.e. number of columns = number of
 % trials
-fprintf('About to begin filtering signals')
+fprintf('About to begin filtering signals\n')
 if (strcmp(measure, 'esc')) ||(strcmp(measure, 'mi')) 
 [filt_sig_mod, filt_sig_pac] = filt_signalsWAV(sig_pac, sig_mod, Fs, ...
     ph_freq_vec, amp_freq_vec, measure, width);
@@ -197,7 +197,7 @@ if strcmp(measure, 'esc')
 end
 
 if strcmp(measure, 'mi')
-    fprintf('About to analyzing filtered signals')
+    fprintf('About to analyzing filtered signals\n')
     [pacmat, freqvec_ph, freqvec_amp, pac_angles] = find_pac_nofilt(filt_sig_pac, Fs, measure, filt_sig_mod, ph_freq_vec, amp_freq_vec, 'n', waitbar);
 end
 
