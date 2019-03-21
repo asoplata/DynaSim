@@ -116,24 +116,6 @@ end
 freqvec_amp = cent_freq_vec2;
 freqvec_ph = cent_freq_vec;
 
-% sig_pac and sig_mod are the signals filtered for each frequency bin
-figure(30)
-subplot 211
-plot(sig_pac{1})
-hold on
-for ii=2:length(sig_pac)
-    plot(sig_pac{ii})
-end
-hold off
-
-subplot 212
-plot(sig_mod{1})
-hold on
-for ii=2:length(sig_mod)
-    plot(sig_mod{ii})
-end
-hold off
-
 % Calculate PAC measures %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 if (strcmp(measure, 'esc') || strcmp(measure, 'mi'))
 pacmat = zeros(ybins, xbins);

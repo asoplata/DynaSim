@@ -320,15 +320,16 @@ switch options.plot_type
     end
   case 'coupling'      % plot VARIABLE_Power_SUA.Pxx
     if any(cellfun(@isempty,regexp(var_fields,'.*_Coupling_MUA$')))
-%       data=dsCalcCoupling(data,varargin{:});
-        fprintf('hello world\n')
+      data=dsCalcCoupling(data,varargin{:});
+      fprintf('PAC analyzed successfully\n')
     end
-    xdata=data(1).([var_fields{1} '_Coupling_MUA']).amplitudes;
-    xlab='frequency (Hz)'; % x-axis label
-    % set default x-limits for power spectrum
-    if isempty(options.xlim)
-      options.xlim=[0 200]; % Hz
-    end
+    xdata=data(1).([var_fields{1} '_Coupling_MUA']).ph_freq_axis;
+    xlab='Freq of SWO Phase (Hz)'; % x-axis label
+
+%     % set default x-limits for power spectrum
+%     if isempty(options.xlim)
+%       options.xlim=[0 200]; % Hz
+%     end
     
   case {'rastergram','raster'} % raster VARIABLE_spike_times
     if any(cellfun(@isempty,regexp(var_fields,'.*_spike_times$')))
@@ -451,6 +452,11 @@ else
   num_cols=1;
 end
 
+if strcmp(options.plot_type, 'coupling')
+    % Hack: Because we KNOW we only want 1 plot, and they're all the same 
+    % anyways since there is no per-cell information
+    num_figs = 1;
+end
 max_legend_entries=10;
 for figset=1:num_fig_sets
   for fig=1:num_figs
@@ -485,7 +491,7 @@ for figset=1:num_fig_sets
         % what to plot
         % -----------------------------------------------------------------
 
-        % AES: only Coupling usage needed for this case?
+        % AES: only Coupling usage needed for these first two cases?
         if num_sims==1 && num_pops==1 && num_vars==1 && ~lock_gca
         % -----------------------------------------------------------------
           % one cell per row: dat = data(s=1).(var)(:,c=r) where var=vars{v=1}
@@ -501,6 +507,11 @@ for figset=1:num_fig_sets
               dat=data(sim_index).(var).Pxx(:,row);
               legend_strings={'SUA','MUA'};
             case 'coupling'
+              % 'dat' may be equivalent to y-data
+              ydata=data(sim_index).([var '_Coupling_MUA']).ampl_freq_axis;
+              zdata=data(sim_index).([var '_Coupling_MUA']).amplitudes;
+              angleData=data(sim_index).([var '_Coupling_MUA']).angles;
+%               ylab='Freq of Alpha Ampl (Hz)'; % x-axis label
             case {'rastergram','raster'}
               set_name=regexp(var,'^([a-zA-Z0-9]+)_','tokens','once');
               allspikes{1}{1}=data(sim_index).([var '_spike_times']){row};
@@ -523,6 +534,9 @@ for figset=1:num_fig_sets
               var=[var '_Power_SUA'];
               dat=data(sim_index).(var).Pxx;
             case 'coupling'
+              ydata=data(sim_index).([var '_Coupling_MUA']).ampl_freq_axis;
+              zdata=data(sim_index).([var '_Coupling_MUA']).amplitudes;
+              angleData=data(sim_index).([var '_Coupling_MUA']).angles;
             case {'rastergram','raster'}
               set_name=regexp(var,'^([a-zA-Z0-9]+)_','tokens','once');
               allspikes{1}=data(sim_index).([var '_spike_times']);
@@ -560,6 +574,10 @@ for figset=1:num_fig_sets
               AuxDataName={'MUA Power'};
               var=[var '_Power_SUA'];
               dat=data(sim_index).(var).Pxx;
+            case 'coupling'
+              ydata=data(sim_index).([var '_Coupling_MUA']).ampl_freq_axis;
+              zdata=data(sim_index).([var '_Coupling_MUA']).amplitudes;
+              angleData=data(sim_index).([var '_Coupling_MUA']).angles;
             case {'rastergram','raster'}
               set_name=regexp(var,'^([a-zA-Z0-9]+)_','tokens','once');
               allspikes{1}=data(sim_index).([var '_spike_times']);
@@ -601,6 +619,10 @@ for figset=1:num_fig_sets
                 vlines(end+1)=data(sim_index).([var_fields{k} '_Power_MUA']).PeakFreq;
               end
               var=['<' variables{1} '_Power_SUA>'];
+            case 'coupling'
+              ydata=data(sim_index).([var '_Coupling_MUA']).ampl_freq_axis;
+              zdata=data(sim_index).([var '_Coupling_MUA']).amplitudes;
+              angleData=data(sim_index).([var '_Coupling_MUA']).angles;
             case {'rastergram','raster'}
               set_name={};
               for k=1:num_pops
@@ -833,11 +855,15 @@ for figset=1:num_fig_sets
             else
               imagesc(dat);
             end
+            %% omg cells
           case {'coupling'}
-              imagesc(dat);
-%               hold on
-%               quiver(dat2)
-%               hold off
+              imagesc(xdata, ydata, zdata);
+              colorbar
+              hold on
+              quiver(xdata, ydata, ones(size(angleData)), ...
+                  angleData,'Color', 'k', 'LineWidth', 2.0,...
+                  'AutoScaleFactor', 0.5)
+              hold off
           case {'rastergram','raster'}
             % draw spikes
             ypos=0; % y-axis position tracker

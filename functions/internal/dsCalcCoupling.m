@@ -74,7 +74,7 @@ options=dsCheckOptions(varargin,{...
   'auto_gen_test_data_flag',0,{0,1},...
   'measure', 'mi',{'mi','esc','cfc'},...% Type of coupling measure
   'phase_freqs', [0.01:0.2:2.41],[],...% Hz, Frequencies to analyze for the phase of the "slow" or modulating signal
-  'ampl_freqs', [4:1:14],[],...% Hz, Frequencies to analyze for the amplitude of the "fast" or carrier signal
+  'ampl_freqs', [8:1:14],[],...% Hz, Frequencies to analyze for the amplitude of the "fast" or carrier signal
   'plt', 'n',[],...% Don't use internal code to plot data
   'waitbar', 0,[],...% Don't print ongoing progress of significance analysis
   'width', 7,[],...% Width of Morlet wavelets to use for filtering, whatever?
