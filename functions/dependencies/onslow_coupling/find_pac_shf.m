@@ -115,7 +115,7 @@ alpha = alpha/(xbins*ybins); % Uncomment to use Bonferonni Correction
 % Each cell array element of ph_filt_signals and amp_filt_signals has the
 % same dimensions as the original signals i.e. number of columns = number of
 % trials
-fprintf('About to begin filtering signals\n')
+fprintf('About to begin filtering signals')
 if (strcmp(measure, 'esc')) ||(strcmp(measure, 'mi')) 
 [filt_sig_mod, filt_sig_pac] = filt_signalsWAV(sig_pac, sig_mod, Fs, ...
     ph_freq_vec, amp_freq_vec, measure, width);
@@ -197,43 +197,8 @@ if strcmp(measure, 'esc')
 end
 
 if strcmp(measure, 'mi')
-    fprintf('About to analyzing filtered signal\n')
-    % Cut off the artifactual "ends" on either side of the filter signals,
-    % and only analyze the middle 90%
-    
-    figure(10)
-    subplot 211
-    plot(filt_sig_pac{1})
-    hold on
-    for ii=2:length(filt_sig_pac)
-        plot(filt_sig_pac{ii})
-    end
-    hold off
-    
-    subplot 212
-    plot(filt_sig_mod{1})
-    hold on
-    for ii=2:length(filt_sig_mod)
-        plot(filt_sig_mod{ii})
-    end
-    hold off
-    
-    boundary = 0.1;
-    lmtd_filt_sig_pac = {};
-    for ii=1:length(filt_sig_pac)
-        lmtd_filt_sig_pac{ii} = filt_sig_pac{ii}(...
-            round(boundary*length(filt_sig_pac{ii})):round((1-boundary)*length(filt_sig_pac{ii})),1);
-    end
-    
-    lmtd_filt_sig_mod = {};
-    for ii=1:length(filt_sig_mod)
-        lmtd_filt_sig_mod{ii} = filt_sig_mod{ii}(...
-            round(boundary*length(filt_sig_mod{ii})):round((1-boundary)*length(filt_sig_mod{ii})),1);
-    end
-    
-    [pacmat, freqvec_ph, freqvec_amp, pac_angles] = find_pac_nofilt(lmtd_filt_sig_pac, Fs, measure, lmtd_filt_sig_mod, ph_freq_vec, amp_freq_vec, 'n', waitbar);
-    
-    
+    fprintf('About to analyzing filtered signals')
+    [pacmat, freqvec_ph, freqvec_amp, pac_angles] = find_pac_nofilt(filt_sig_pac, Fs, measure, filt_sig_mod, ph_freq_vec, amp_freq_vec, 'n', waitbar);
 end
 
 if strcmp(measure, 'cfc')
