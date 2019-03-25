@@ -72,16 +72,20 @@ options=dsCheckOptions(varargin,{...
   'timeBandwidthProduct',[],[],... % time-bandwidth product for multi-taper method
   'output_suffix','',[],...
   'auto_gen_test_data_flag',0,{0,1},...
+  'phase_freqs', [0.01:1:2.01],[],...% Hz, Frequencies to analyze for the phase of the "slow" or modulating signal
+  'ampl_freqs', [8:3:14],[],...% Hz, Frequencies to analyze for the amplitude of the "fast" or carrier signal
   'measure', 'mi',{'mi','esc','cfc'},...% Type of coupling measure
-  'phase_freqs', [0.01:0.2:2.41],[],...% Hz, Frequencies to analyze for the phase of the "slow" or modulating signal
-  'ampl_freqs', [8:1:14],[],...% Hz, Frequencies to analyze for the amplitude of the "fast" or carrier signal
   'plt', 'n',[],...% Don't use internal code to plot data
   'waitbar', 0,[],...% Don't print ongoing progress of significance analysis
   'width', 7,[],...% Width of Morlet wavelets to use for filtering, whatever?
   'nfft', 2500000,[],... % AES TODO Samples to use for each time/freq bin
   'num_shf', 0,[],...% Don't run any statistical significance analysis on coupling
 },false);
-  %% 'nfft', ceil(Fs/(diff(phase_freqs(1:2)))),[],...
+
+%   'phase_freqs', [0.01:0.2:2.41],[],...% Hz, Frequencies to analyze for the phase of the "slow" or modulating signal
+%   'ampl_freqs', [8:1:14],[],...% Hz, Frequencies to analyze for the amplitude of the "fast" or carrier signal
+
+%% 'nfft', ceil(Fs/(diff(phase_freqs(1:2)))),[],...
 
 data = dsCheckData(data, varargin{:});
 % note: calling dsCheckData() at beginning enables analysis function to
@@ -103,17 +107,6 @@ nsamp=t2-t1+1; % number of samples for spectral estimate
 
 % frequency parameters
 Fs = fix(1/(dt/1000)); % effective sampling frequency
-%% Fmin=options.min_peak_frequency; % min frequency for peak detection
-%% Fmax=options.max_peak_frequency; % max frequency for peak detection
-%% thresh_prctile=options.peak_threshold_prctile; % percentile for setting power threshold for peak detection
-%% smooth_factor=options.smooth_factor; % number of samples to smooth spectrum
-%% Fwin=options.peak_area_width; % size of frequency bin (centered on peak) for calculating area under spectrum
-%% FreqRange=[max(Fmin,2/time(end)) Fmax]; % range to look for spectral peaks
-%% NFFT=2^(nextpow2(nsamp-1)-1);%2); % <-- use higher resolution to capture STO freq variation
-%% % WINDOW=2^(nextpow2(NFFT-1)-3);
-%% % NOVERLAP=[]; % spectral parameters
-%% NW = options.timeBandwidthProduct;
-
 
 %% 2.0 set list of variables to process as cell array of strings
 options.variable=dsSelectVariables(data(1).labels,options.variable, varargin{:});
@@ -132,100 +125,6 @@ for v=1:length(options.variable)
   % determine how many cells are in this data set
   ncells=size(dat,2);
 
-  %% % preallocation
-  %% PeakFreq=nan(1,ncells);
-  %% PeakArea=nan(1,ncells);
-
-  % SUA spectra: loop over cells
-  %% for i=1:ncells
-  %%   % select data
-  %%   X=detrend(dat(t1:t2,i)); % detrend the data
-  %%   % calculate spectral estimate
-  %%   if strcmp(reportUI,'matlab')
-  %%     [tmpPxx,f] = pmtm(X, NW, NFFT, Fs); % calculate power
-  %%   elseif exist('pwelch') == 2 % 'pwelch is in Octave's path
-  %%     [tmpPxx,f] = pwelch(X,NFFT,[],NFFT,Fs); % calculate power in octave (pmtm is not implemented yet)
-  %%   elseif exist('pwelch') ~= 2 % 'pwelch is not in Octave's path
-  %%     try
-  %%       pkg load signal; % trying to load octave forge 'signal' package before using pwelch function
-  %%       fprintf('''pmtm'' function for spectral analysis not available in Octave, using pwelch.\n')
-  %%       [tmpPxx,f] = pwelch(X,NFFT,[],NFFT,Fs); % calculate power in octave (pmtm is not implemented yet)
-  %%     catch
-  %%       error('pwelch function is needed for spectral analysis in Octave, please install the signal package from Octave Forge');
-  %%     end
-  %%   end
-
-  %%   if i==1
-  %%     % get size of spectrum and preallocate result matrix
-  %%     nfreq=length(f);
-  %%     Pxx=nan(nfreq,ncells);
-  %%   end
-
-  %%   if all(isnan(tmpPxx(:)))
-  %%     tmpPxx=zeros(size(tmpPxx));
-  %%   end
-
-  %%   if ~isa(tmpPxx,'double')
-  %%     % convert to double precision
-  %%     tmpPxx=double(tmpPxx);
-  %%   end
-
-  %%   % smooth the spectrum
-  %%   if smooth_factor>1 && strcmp(reportUI,'matlab')
-  %%     tmpPxx=smooth(tmpPxx,smooth_factor);
-  %%   else
-  %%     tmpPxx=lsmooth(tmpPxx,smooth_factor);
-  %%   end
-
-  %%   % Peak Detection:
-  %%   % select range of frequencies over which to look for peaks
-  %%   sel = find(FreqRange(1)<=f & f<=FreqRange(end));
-
-  %%   % set threshold for peak detection
-  %%   ht=prctile(tmpPxx(sel),thresh_prctile); % ht=prctile(log10(tmpPxx(sel)),thresh_prctile);
-
-  %%   if ~isnan(ht)
-  %%     % get index of peaks in range over threshold
-  %%     if strcmp(reportUI,'matlab')
-  %%       [linPeakPower,PPind]=findpeaks(tmpPxx(sel),'MinPeakHeight',ht,'NPeaks',3); % [PeakPower,PPind]=findpeaks(log10(tmpPxx(sel)),'MinPeakHeight',ht,'NPeaks',3);
-  %%     else
-  %%       [linPeakPower,PPind]=findpeaks(tmpPxx(sel),'MinPeakHeight',ht,'MinPeakDistance',0,'MinPeakWidth',0);
-  %%     end
-  %%     PeakPower = log10(linPeakPower);
-  %%   else
-  %%     PPind=[];
-  %%   end
-
-  %%   if ~isempty(PPind)
-  %%     % if multiple peaks, only consider the largest
-  %%     if numel(PPind)>1
-  %%       PPind=PPind(max(PeakPower)==PeakPower); %PPind=PPind(1);
-  %%     end
-
-  %%     % get frequency at that index
-  %%     PeakFreq(i) = f(sel(PPind));
-
-  %%     % set limits for calculating area under spectrum around peak
-  %%     flo=PeakFreq(i)-Fwin/2;
-  %%     fhi=PeakFreq(i)+Fwin/2;
-  %%     sel2=(flo<=f & f<=fhi);
-  %%     % calculate area under spectrum around peak
-  %%     PeakArea(i) = sum(tmpPxx(sel2))*(f(2)-f(1));
-  %%   else
-  %%     PeakFreq(i)=nan;
-  %%     PeakArea(i)=nan;
-  %%   end
-  %%   % Store results
-  %%   Pxx(:,i)=tmpPxx;
-  %% end
-  % -----------------------------------------------------
-  % Repeat spectral estimate for MUA:
-  %% if ncells==1
-  %%   % same as SUA
-  %%   Pxx_mean=Pxx;
-  %%   Pxx_mean_PeakFreq=PeakFreq;
-  %%   Pxx_mean_PeakArea=PeakArea;
-  %% else
     % calculate MUA
     % TODO AES try with and without detrend
     X=detrend(nanmean(dat(t1:t2,:),2)); % detrend the data
@@ -233,7 +132,7 @@ for v=1:length(options.variable)
     %% [tmpPxx,f] = pwelch(X,NFFT,[],NFFT,Fs); % calculate power
 
     fprintf('About to start running coupling analysis\n')
-    [pacmat, freqvec_ph, freqvec_amp, pmat, pac_angles] = ...
+    [pacmat, freqvec_ph, freqvec_amp, pmat, pac_angles, comodulograms] = ...
     find_pac_shf(X, Fs, options.measure, X, ...
     options.phase_freqs, options.ampl_freqs, options.plt,...
     options.waitbar, options.width, options.nfft, ...
@@ -254,9 +153,18 @@ for v=1:length(options.variable)
     % data.VARIABLE_Power_MUA.(Pxx,PeakFreq,PeakArea,frequency)
     data.([var '_Coupling_MUA' options.output_suffix]).amplitudes=pacmat;
     data.([var '_Coupling_MUA' options.output_suffix]).angles=pac_angles;
+    data.([var '_Coupling_MUA' options.output_suffix]).comodulograms=comodulograms;
     data.([var '_Coupling_MUA' options.output_suffix]).ampl_freq_axis=freqvec_amp;
     data.([var '_Coupling_MUA' options.output_suffix]).ph_freq_axis=freqvec_ph;
 
+    figure(10)
+    for ii = 1:size(comodulograms, 1)
+        for jj = 1:size(comodulograms, 2)
+            subplot(size(comodulograms,1), size(comodulograms,2), ii*jj)
+            imagesc(comodulograms{ii,jj})
+        end
+    end
+    
     if ~ismember([var '_Coupling_MUA' options.output_suffix],data.results)
       data.results{end+1}=[var '_Coupling_MUA' options.output_suffix];
     end

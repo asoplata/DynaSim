@@ -1,4 +1,4 @@
-function [pacmat, freqvec_ph, freqvec_amp, pmat, pac_angles] = find_pac_shf (sig_pac, Fs, measure, ...
+function [pacmat, freqvec_ph, freqvec_amp, pmat, pac_angles, comodulograms] = find_pac_shf (sig_pac, Fs, measure, ...
 sig_mod, ph_freq_vec, amp_freq_vec, plt, waitbar, width, nfft, num_shf, alpha,...
 dataname, sig_pac_name, sig_mod_name)
 % This function calculates a matrix of PAC values using either the ESC, MI 
@@ -120,75 +120,8 @@ if (strcmp(measure, 'esc')) ||(strcmp(measure, 'mi'))
 [filt_sig_mod, filt_sig_pac] = filt_signalsWAV(sig_pac, sig_mod, Fs, ...
     ph_freq_vec, amp_freq_vec, measure, width);
 end
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% % Create shuffled datasets and distribution of PAC values %%%%%%%%%%%%%%%%%
-% if num_shf ~= 0
-% if waitbar == 1
-%     fprintf('\nCreating shuffled data sets\n');
-% end
-% for s = 1:num_shf
-%     
-%     if strcmp(measure, 'esc')
-%            
-%         if isvector(sig_pac)
-%             shuffled_sig_amp = shuffle_esc(filt_sig_pac, Fs);
-%         else
-%             shuffled_sig_amp = shuffle_trials_no_id(filt_sig_pac);
-%         end
-%         shf_pacmat_final(s,:,:) = find_pac_nofilt(shuffled_sig_amp, Fs, measure, filt_sig_mod, ph_freq_vec, amp_freq_vec,'n');
-%         
-%     end
-%      
-% 
-%     if strcmp(measure, 'mi')
-%         
-%         if isvector(sig_pac)
-%             shuffled_sig_amp = shuffle_esc(filt_sig_pac, Fs);
-%         else
-%             shuffled_sig_amp = shuffle_trials_no_id(filt_sig_pac);
-%         end
-%         shf_pacmat_final(s,:,:) = find_pac_nofilt(shuffled_sig_amp, Fs, measure, filt_sig_mod, ph_freq_vec, amp_freq_vec,'n');
-%         
-%     end
-%     
-%     if strcmp(measure, 'cfc')
-%          
-%         if isvector(sig_pac)
-%             shuffled_sig1 = shuffle_esc(sig_pac, Fs);
-%         else
-%             shuffled_sig1 = shuffle_trials_no_id(sig_pac);
-%         end
-%         shf_pacmat_final(s,:,:) = find_pac_nofilt(shuffled_sig1, Fs,measure, sig_mod, ph_freq_vec, amp_freq_vec,'n', 0, width, nfft);
-%         
-%     end
-%     
-%     % Display current computational step to user
-%     if waitbar == 1
-%         if s == 1
-%             fprintf('%03i%% ', floor((s/num_shf)*100));
-%         else
-%             fprintf('\b\b\b\b\b%03i%% ', floor((s/num_shf)*100));
-%         end
-%         if s == num_shf
-%             fprintf('\n');
-%         end
-%     end
-% end
-% 
-% %Find mean and standard deviation of shuffled data sets
-% if strcmp(measure, 'mi')
-%     for i =1:ybins
-%         for j=1:xbins
-%             [shf_data_mean(i,j), shf_data_std(i,j)] = normfit(shf_pacmat_final(:,i,j));
-%         end
-%     end
-%     
-% else
-%     shf_data_mean = squeeze (mean (shf_pacmat_final, 1));
-%     shf_data_std = squeeze (std (shf_pacmat_final, 1));
-% end
-% end
+% % AES
+% load('sim_filtered.mat')
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Calculate PAC measures %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -198,7 +131,7 @@ end
 
 if strcmp(measure, 'mi')
     fprintf('About to analyzing filtered signals\n')
-    [pacmat, freqvec_ph, freqvec_amp, pac_angles] = find_pac_nofilt(filt_sig_pac, Fs, measure, filt_sig_mod, ph_freq_vec, amp_freq_vec, 'n', waitbar);
+    [pacmat, freqvec_ph, freqvec_amp, pac_angles, comodulograms] = find_pac_nofilt(filt_sig_pac, Fs, measure, filt_sig_mod, ph_freq_vec, amp_freq_vec, 'n', waitbar);
 end
 
 if strcmp(measure, 'cfc')
