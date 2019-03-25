@@ -1,4 +1,4 @@
-function data = dsCalcCoupling(data, varargin)
+function data = dsCalcComodulograms(data, varargin)
 %CALCPOWER - Compute spectral analysis of DynaSim data
 %
 % Usage:
@@ -72,15 +72,15 @@ options=dsCheckOptions(varargin,{...
   'timeBandwidthProduct',[],[],... % time-bandwidth product for multi-taper method
   'output_suffix','',[],...
   'auto_gen_test_data_flag',0,{0,1},...
-  'phase_freqs', [0.01:0.2:2.41],[],...% Hz, Frequencies to analyze for the phase of the "slow" or modulating signal for overall coupling plots
-  'ampl_freqs', [8:1:14],[],...% Hz, Frequencies to analyze for the amplitude of the "fast" or carrier signal for overall coupling plots
+  'phase_freqs', [0.01:1:2.01],[],...% Hz, Frequencies to analyze for the phase of the "slow" or modulating signal for comodulograms
+  'ampl_freqs', [8:3:14],[],...% Hz, Frequencies to analyze for the amplitude of the "fast" or carrier signal for comodulograms
   'measure', 'mi',{'mi','esc','cfc'},...% Type of coupling measure
   'plt', 'n',[],...% Don't use internal code to plot data
   'waitbar', 0,[],...% Don't print ongoing progress of significance analysis
   'width', 7,[],...% Width of Morlet wavelets to use for filtering, whatever?
   'nfft', 2500000,[],... % AES TODO Samples to use for each time/freq bin
   'num_shf', 0,[],...% Don't run any statistical significance analysis on coupling
-  'calc_comodulograms', 0, [],...
+  'calc_comodulograms', 1, [],...
 },false);
 
 
@@ -92,7 +92,7 @@ data = dsCheckData(data, varargin{:});
 
 if numel(data)>1
   % use dsAnalyzeStudy to recursively call dsCalcPower on each data set
-  data=dsAnalyzeStudy(data,@dsCalcCoupling,varargin{:});
+  data=dsAnalyzeStudy(data,@dsCalcComodulograms,varargin{:});
   return;
 end
 
@@ -130,7 +130,7 @@ for v=1:length(options.variable)
 
     %% [tmpPxx,f] = pwelch(X,NFFT,[],NFFT,Fs); % calculate power
 
-    fprintf('About to start running coupling analysis\n')
+    fprintf('About to start running coupling/comodulogram analysis\n')
     [pacmat, freqvec_ph, freqvec_amp, pmat, pac_angles, comodulograms] = ...
     find_pac_shf(X, Fs, options.measure, X, ...
     options.phase_freqs, options.ampl_freqs, options.plt,...
@@ -150,12 +150,12 @@ for v=1:length(options.variable)
     % organization scheme:
     % data.VARIABLE_Power_SUA.(Pxx,PeakFreq,PeakArea,frequency)
     % data.VARIABLE_Power_MUA.(Pxx,PeakFreq,PeakArea,frequency)
-    data.([var '_Coupling_MUA' options.output_suffix]).amplitudes=pacmat;
-    data.([var '_Coupling_MUA' options.output_suffix]).angles=pac_angles;
-    data.([var '_Coupling_MUA' options.output_suffix]).comodulograms=comodulograms;
-    data.([var '_Coupling_MUA' options.output_suffix]).ampl_freq_axis=freqvec_amp;
-    data.([var '_Coupling_MUA' options.output_suffix]).ph_freq_axis=freqvec_ph;
-% 
+    data.([var '_Comodulograms_MUA' options.output_suffix]).amplitudes=pacmat;
+    data.([var '_Comodulograms_MUA' options.output_suffix]).angles=pac_angles;
+    data.([var '_Comodulograms_MUA' options.output_suffix]).comodulograms=comodulograms;
+    data.([var '_Comodulograms_MUA' options.output_suffix]).ampl_freq_axis=freqvec_amp;
+    data.([var '_Comodulograms_MUA' options.output_suffix]).ph_freq_axis=freqvec_ph;
+%     % AES debug
 %     figure(10)
 %     for ii = 1:size(comodulograms, 1)
 %         for jj = 1:size(comodulograms, 2)
@@ -164,8 +164,8 @@ for v=1:length(options.variable)
 %         end
 %     end
 %     
-    if ~ismember([var '_Coupling_MUA' options.output_suffix],data.results)
-      data.results{end+1}=[var '_Coupling_MUA' options.output_suffix];
+    if ~ismember([var '_Comodulograms_MUA' options.output_suffix],data.results)
+      data.results{end+1}=[var '_Comodulograms_MUA' options.output_suffix];
     end
 
     if options.exclude_data_flag

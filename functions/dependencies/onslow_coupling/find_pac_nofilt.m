@@ -1,5 +1,5 @@
 function [pacmat, freqvec_ph, freqvec_amp, pac_angles, comodulograms] = find_pac_nofilt (sig_pac, Fs,...
-    measure, sig_mod, ph_freq_vec, amp_freq_vec, plt, waitbar, width, nfft,...
+    measure, sig_mod, ph_freq_vec, amp_freq_vec, plt, waitbar, calc_comodulograms, width, nfft,...
         dataname, sig_pac_name, sig_mod_name)
 %function [pacmat, freqvec_ph, freqvec_amp] = find_pac_nofilt (sig_pac, Fs,...
 %   measure, sig_mod, ph_freq_vec, amp_freq_vec, plt, waitbar, width, nfft,...
@@ -60,18 +60,21 @@ if nargin < 8
     waitbar = 0;
 end
 if nargin < 9
-    width = 7;
+    calc_comodulograms = 0;
 end
 if nargin < 10
-    nfft = ceil(Fs/(diff(ph_freq_vec(1:2))));
+    width = 7;
 end
 if nargin < 11
-    dataname = '';
+    nfft = ceil(Fs/(diff(ph_freq_vec(1:2))));
 end
 if nargin < 12
-    sig_pac_name = '';
+    dataname = '';
 end
 if nargin < 13
+    sig_pac_name = '';
+end
+if nargin < 14
     sig_mod_name = '';
 end
 
@@ -136,7 +139,8 @@ comodulograms = cell(ybins, xbins);
             
             if strcmp(measure, 'mi')
                 % Pacmat full of raw mi values, not yet normalized
-                [pacmat(i,j), pac_angles(i,j), comodulograms{i,j}] = mi_measure(sig_mod{1,j}, sig_pac{1,i});
+                [pacmat(i,j), pac_angles(i,j), comodulograms{i,j}] = mi_measure(sig_mod{1,j}, ...
+                    sig_pac{1,i}, calc_comodulograms);
             end
             
             % Display current computational step to user

@@ -1,5 +1,5 @@
 function [pacmat, freqvec_ph, freqvec_amp, pmat, pac_angles, comodulograms] = find_pac_shf (sig_pac, Fs, measure, ...
-sig_mod, ph_freq_vec, amp_freq_vec, plt, waitbar, width, nfft, num_shf, alpha,...
+sig_mod, ph_freq_vec, amp_freq_vec, plt, waitbar, width, nfft, num_shf, calc_comodulograms, alpha,...
 dataname, sig_pac_name, sig_mod_name)
 % This function calculates a matrix of PAC values using either the ESC, MI 
 % or CFC measure. 
@@ -77,15 +77,18 @@ if nargin < 11
     num_shf = 50;
 end
 if nargin < 12
-    alpha = 0.05;
+    calc_comodulograms = 0;
 end
 if nargin < 13
-    dataname = '';
+    alpha = 0.05;
 end
 if nargin < 14
-    sig_pac_name = '';
+    dataname = '';
 end
 if nargin < 15
+    sig_pac_name = '';
+end
+if nargin < 16
     sig_mod_name = '';
 end
 
@@ -130,8 +133,8 @@ if strcmp(measure, 'esc')
 end
 
 if strcmp(measure, 'mi')
-    fprintf('About to analyzing filtered signals\n')
-    [pacmat, freqvec_ph, freqvec_amp, pac_angles, comodulograms] = find_pac_nofilt(filt_sig_pac, Fs, measure, filt_sig_mod, ph_freq_vec, amp_freq_vec, 'n', waitbar);
+    fprintf('About to analyze filtered signals\n')
+    [pacmat, freqvec_ph, freqvec_amp, pac_angles, comodulograms] = find_pac_nofilt(filt_sig_pac, Fs, measure, filt_sig_mod, ph_freq_vec, amp_freq_vec, 'n', waitbar, calc_comodulograms);
 end
 
 if strcmp(measure, 'cfc')

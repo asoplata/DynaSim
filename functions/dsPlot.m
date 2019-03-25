@@ -161,7 +161,7 @@ options=dsCheckOptions(varargin,{...
   'max_num_overlaid',50,[],...
   'max_num_rows',20,[],...
   'plot_mode','trace',{'trace','image'},...
-  'plot_type','waveform',{'waveform','rastergram','raster','power','rates', 'coupling'},...
+  'plot_type','waveform',{'waveform','rastergram','raster','power','rates', 'coupling','comodulograms'},...
   'xlim',[],[],...
   'ylim',[],[],...
   'figwidth',[1],[],...
@@ -323,14 +323,18 @@ switch options.plot_type
       data=dsCalcCoupling(data,varargin{:});
       fprintf('PAC analyzed successfully\n')
     end
+    % AES TODO
     xdata=data(1).([var_fields{1} '_Coupling_MUA']).ph_freq_axis;
-    xlab='Freq of SWO Phase (Hz)'; % x-axis label
-
-%     % set default x-limits for power spectrum
-%     if isempty(options.xlim)
-%       options.xlim=[0 200]; % Hz
-%     end
-    
+    xlab='Time'; % x-axis label
+  case 'comodulograms'      % plot VARIABLE_Power_SUA.Pxx
+    if any(cellfun(@isempty,regexp(var_fields,'.*_Comodulograms_MUA$')))
+      data=dsCalcComodulograms(data,varargin{:});
+      fprintf('Comodulograms analyzed successfully\n')
+    end
+%     phase_bin_data=data(1).([var_fields{1} '_Comodulograms_MUA']).ph_freq_axis;
+%     time_data=data(1).([var_fields{1} '_Comodulograms_MUA']).time_axis;
+    xdata = 1:size(data(1).([var_fields{1} '_Comodulograms_MUA']).comodulograms,1);
+    xlab = 'Time in window lengths'; % x-axis label
   case {'rastergram','raster'} % raster VARIABLE_spike_times
     if any(cellfun(@isempty,regexp(var_fields,'.*_spike_times$')))
       spike_fields=cellfun(@(x)[x '_spikes'],var_fields,'uni',0);
@@ -512,6 +516,10 @@ for figset=1:num_fig_sets
               zdata=data(sim_index).([var '_Coupling_MUA']).amplitudes;
               angleData=data(sim_index).([var '_Coupling_MUA']).angles;
 %               ylab='Freq of Alpha Ampl (Hz)'; % x-axis label
+            case 'comodulograms'
+              % 'dat' may be equivalent to y-data
+              ydata=1:size(data(sim_index).([var '_Comodulograms_MUA']).comodulograms,2);
+              zdata=data(sim_index).([var '_Comodulograms_MUA']).comodulograms;
             case {'rastergram','raster'}
               set_name=regexp(var,'^([a-zA-Z0-9]+)_','tokens','once');
               allspikes{1}{1}=data(sim_index).([var '_spike_times']){row};
@@ -537,6 +545,10 @@ for figset=1:num_fig_sets
               ydata=data(sim_index).([var '_Coupling_MUA']).ampl_freq_axis;
               zdata=data(sim_index).([var '_Coupling_MUA']).amplitudes;
               angleData=data(sim_index).([var '_Coupling_MUA']).angles;
+            case 'comodulograms'
+              % 'dat' may be equivalent to y-data
+              ydata=1:size(data(sim_index).([var '_Comodulograms_MUA']).comodulograms,2);
+              zdata=data(sim_index).([var '_Comodulograms_MUA']).comodulograms;              
             case {'rastergram','raster'}
               set_name=regexp(var,'^([a-zA-Z0-9]+)_','tokens','once');
               allspikes{1}=data(sim_index).([var '_spike_times']);
@@ -578,6 +590,10 @@ for figset=1:num_fig_sets
               ydata=data(sim_index).([var '_Coupling_MUA']).ampl_freq_axis;
               zdata=data(sim_index).([var '_Coupling_MUA']).amplitudes;
               angleData=data(sim_index).([var '_Coupling_MUA']).angles;
+            case 'comodulograms'
+              % 'dat' may be equivalent to y-data
+              ydata=1:size(data(sim_index).([var '_Comodulograms_MUA']).comodulograms,2);
+              zdata=data(sim_index).([var '_Comodulograms_MUA']).comodulograms;
             case {'rastergram','raster'}
               set_name=regexp(var,'^([a-zA-Z0-9]+)_','tokens','once');
               allspikes{1}=data(sim_index).([var '_spike_times']);
@@ -623,6 +639,10 @@ for figset=1:num_fig_sets
               ydata=data(sim_index).([var '_Coupling_MUA']).ampl_freq_axis;
               zdata=data(sim_index).([var '_Coupling_MUA']).amplitudes;
               angleData=data(sim_index).([var '_Coupling_MUA']).angles;
+            case 'comodulograms'
+              % 'dat' may be equivalent to y-data
+              ydata=1:size(data(sim_index).([var '_Comodulograms_MUA']).comodulograms,2);
+              zdata=data(sim_index).([var '_Comodulograms_MUA']).comodulograms;
             case {'rastergram','raster'}
               set_name={};
               for k=1:num_pops
@@ -864,7 +884,24 @@ for figset=1:num_fig_sets
                   sin(angleData),'Color', 'k', 'LineWidth', 1.0,...
                   'AutoScaleFactor', 0.25)
               hold off
-          case {'rastergram','raster'}
+          case {'comodulograms'}
+              % TODO need figure declaration?
+              kk = 0;
+              for ii = 1:length(xdata)
+                  for jj = 1:length(ydata)
+                      kk = kk + 1;
+                      subplot(length(xdata), length(ydata), kk)
+%                       TODO encode time and phasebins for plotting
+%                       imagesc(time_data, phase_bin_data, zdata{ii,jj})
+                      imagesc(zdata{ii,jj})
+                      if kk == 1
+                          ylabel('SWO phase bins')
+                          xlabel('Time in sec')
+                      end
+                  end
+              end
+              break
+            case {'rastergram','raster'}
             % draw spikes
             ypos=0; % y-axis position tracker
             yticks=[]; % where to position population names
@@ -950,6 +987,7 @@ for figset=1:num_fig_sets
             end
           end
         end
+        
         % plot lines and text (used for power)
         if ~isempty(vlines)
           for k=1:length(vlines)
@@ -964,8 +1002,13 @@ for figset=1:num_fig_sets
         if ~isempty(legend_strings) && axis_counter==1
           legend(legend_strings);
         end
+%         end
       end % end loop over subplot columns
     end % end loop over subplot rows
+    if strcmp(options.plot_type, 'comodulograms')
+        return
+    end
+
     % set y-limits to max/min over data in this figure
     if shared_ylims_flag || ~isempty(options.ylim)
       if ylims(1)~=ylims(2)
@@ -990,12 +1033,11 @@ for figset=1:num_fig_sets
         end
       end
     end
-
+            
     %link x axes
     if numel(haxes) > 1
       linkaxes(haxes, 'x')
     end
-
   end % end loop over figures in this set
 end % end loop over figure sets
 
