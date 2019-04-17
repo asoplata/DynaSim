@@ -310,10 +310,8 @@ switch options.plot_type
     xdata=time;
     xlab='time (ms)'; % x-axis label
   case 'power'      % plot VARIABLE_Power_SUA.Pxx
-    fprintf('this SHOULD show up')
     if any(cellfun(@isempty,regexp(var_fields,'.*_Power_SUA$')))
         if ~options.disregard_analysis_calc
-            fprintf('this should NOT show up')
             data=dsCalcPower(data,varargin{:});
         end
     end
