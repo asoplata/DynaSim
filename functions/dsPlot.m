@@ -170,6 +170,7 @@ options=dsCheckOptions(varargin,{...
   'yscale','linear',{'linear','log','log10','log2'},...
   'visible','on',{'on','off'},...
   'auto_gen_test_data_flag',0,{0,1},...
+  'disregard_analysis_calc',0,{0,1},...
   },false);
 
 %% auto_gen_test_data_flag argin
@@ -309,8 +310,12 @@ switch options.plot_type
     xdata=time;
     xlab='time (ms)'; % x-axis label
   case 'power'      % plot VARIABLE_Power_SUA.Pxx
+    fprintf('this SHOULD show up')
     if any(cellfun(@isempty,regexp(var_fields,'.*_Power_SUA$')))
-      data=dsCalcPower(data,varargin{:});
+        if ~options.disregard_analysis_calc
+            fprintf('this should NOT show up')
+            data=dsCalcPower(data,varargin{:});
+        end
     end
     xdata=data(1).([var_fields{1} '_Power_SUA']).frequency;
     xlab='frequency (Hz)'; % x-axis label
@@ -320,16 +325,20 @@ switch options.plot_type
     end
   case 'coupling'      % plot VARIABLE_Power_SUA.Pxx
     if any(cellfun(@isempty,regexp(var_fields,'.*_Coupling_MUA$')))
-      data=dsCalcCoupling(data,varargin{:});
-      fprintf('PAC analyzed successfully\n')
+        if ~options.disregard_analysis_calc
+            data=dsCalcCoupling(data,varargin{:});
+            fprintf('PAC analyzed successfully\n')
+        end
     end
     % AES TODO
     xdata=data(1).([var_fields{1} '_Coupling_MUA']).ph_freq_axis;
     xlab='Time'; % x-axis label
   case 'comodulograms'      % plot VARIABLE_Power_SUA.Pxx
     if any(cellfun(@isempty,regexp(var_fields,'.*_Comodulograms_MUA$')))
-      data=dsCalcComodulograms(data,varargin{:});
-      fprintf('Comodulograms analyzed successfully\n')
+        if ~options.disregard_analysis_calc
+            data=dsCalcComodulograms(data,varargin{:});
+            fprintf('Comodulograms analyzed successfully\n')
+        end
     end
 %     phase_bin_data=data(1).([var_fields{1} '_Comodulograms_MUA']).ph_freq_axis;
 %     time_data=data(1).([var_fields{1} '_Comodulograms_MUA']).time_axis;
@@ -359,14 +368,18 @@ switch options.plot_type
 %       end
       else
         % find spikes from threshold crossing
-        data=dsCalcFR(data,varargin{:});
+        if ~options.disregard_analysis_calc
+            data=dsCalcFR(data,varargin{:});
+        end
       end
     end
     xdata=time;
     xlab='time (ms)'; % x-axis label
   case 'rates'      % plot VARIABLE_FR
     if any(cellfun(@isempty,regexp(var_fields,'.*_FR$')))
-      data=dsCalcFR(data,varargin{:});
+        if ~options.disregard_analysis_calc
+            data=dsCalcFR(data,varargin{:});
+        end
     end
     xdata=data.time_FR;
     xlab='time (ms, bins)'; % x-axis label
