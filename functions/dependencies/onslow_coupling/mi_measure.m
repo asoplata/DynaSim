@@ -36,7 +36,10 @@ for count = 1:num_trials
     end
     
     if calc_comodulograms
-        parms.window_length = 2.0;
+        % AES
+        %         parms.window_length = 2.0;
+        parms.window_length = 3.0;
+        
         parms.window_overlap = 1.0;
         parms.number_bins = 18;
         Fs = 1000/0.01 / 10; % don't forget downsampling
