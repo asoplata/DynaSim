@@ -72,7 +72,7 @@ options=dsCheckOptions(varargin,{...
   'timeBandwidthProduct',[],[],... % time-bandwidth product for multi-taper method
   'output_suffix','',[],...
   'auto_gen_test_data_flag',0,{0,1},...
-  'phase_freqs', [0.01:1:2.01],[],...% Hz, Frequencies to analyze for the phase of the "slow" or modulating signal for comodulograms
+  'phase_freqs', [0.5:0.5:2.0],[],...% Hz, Frequencies to analyze for the phase of the "slow" or modulating signal for comodulograms
   'ampl_freqs', [8:3:14],[],...% Hz, Frequencies to analyze for the amplitude of the "fast" or carrier signal for comodulograms
   'measure', 'mi',{'mi','esc','cfc'},...% Type of coupling measure
   'plt', 'n',[],...% Don't use internal code to plot data
@@ -92,7 +92,7 @@ data = dsCheckData(data, varargin{:});
 
 if numel(data)>1
   % use dsAnalyzeStudy to recursively call dsCalcPower on each data set
-  data=dsAnalyzeStudy(data,@dsCalcComodulograms,varargin{:});
+  data=dsAnalyzeStudy(data,@dsCalcPACFiltSignals,varargin{:});
   return;
 end
 
@@ -141,8 +141,8 @@ for v=1:length(options.variable)
     % organization scheme:
     % data.VARIABLE_Power_SUA.(Pxx,PeakFreq,PeakArea,frequency)
     % data.VARIABLE_Power_MUA.(Pxx,PeakFreq,PeakArea,frequency)
-    data.([var '_PACFiltSignals_MUA' options.output_suffix]).filtered_slow=filtered_slow;
-    data.([var '_PACFiltSignals_MUA' options.output_suffix]).filtered_fast=filtered_fast;
+    data.([var '_FiltSigs' options.output_suffix]).filtered_slow=filtered_slow;
+    data.([var '_FiltSigs' options.output_suffix]).filtered_fast=filtered_fast;
 %     % AES debug
 %     figure(10)
 %     for ii = 1:size(comodulograms, 1)
@@ -152,8 +152,8 @@ for v=1:length(options.variable)
 %         end
 %     end
 %     
-    if ~ismember([var '_PACFiltSignals_MUA' options.output_suffix],data.results)
-      data.results{end+1}=[var '_PACFiltSignals_MUA' options.output_suffix];
+    if ~ismember([var '_FiltSign' options.output_suffix],data.results)
+      data.results{end+1}=[var '_FiltSigs' options.output_suffix];
     end
 
     if options.exclude_data_flag

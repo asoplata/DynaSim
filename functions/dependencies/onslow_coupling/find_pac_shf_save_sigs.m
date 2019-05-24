@@ -120,7 +120,8 @@ alpha = alpha/(xbins*ybins); % Uncomment to use Bonferonni Correction
 % trials
 fprintf('About to begin filtering signals\n')
 if (strcmp(measure, 'esc')) ||(strcmp(measure, 'mi')) 
-[filt_sig_mod, filt_sig_pac] = filt_signalsWAV(sig_pac, sig_mod, Fs, ...
+% [filt_sig_mod, filt_sig_pac] = filt_signalsWAV(sig_pac, sig_mod, Fs, ...
+[filt_sig_mod, filt_sig_pac] = filt_signals_just_power(sig_pac, sig_mod, Fs, ...
     ph_freq_vec, amp_freq_vec, measure, width);
 end
 % % AES
