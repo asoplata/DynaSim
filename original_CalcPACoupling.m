@@ -57,6 +57,13 @@ options=dsCheckOptions(varargin,{...
   'peak_threshold_prctile',95,[],... % percentile for setting power threshold for peak detection
   'peak_area_width',5,[],... % Hz, size of frequency bin (centered on peak) over which to calculate area under spectrum
   'exclude_data_flag',0,{0,1},...
+  'plot_flag',0,[],...
+  'slow_freq_range',[0 1.5],[],...
+  'fast_freq_range',[8 13],[],...
+  'window_length',2.0,[],...
+  'window_overlap',1.0,[],...
+  'number_bins',18,[],...
+  'varlabel','V',[],...
   },false);
 
 data = dsCheckData(data);
@@ -240,25 +247,6 @@ for v=1:length(options.variable)
 end
 
 
-
-
-
-
-
-
-
-
-
-parms = mmil_args2parms( varargin, ...
-                   {  'plot_flag',0,[],...
-                      'slow_freq_range',[0 1.5],[],...
-                      'fast_freq_range',[8 13],[],...
-                      'window_length',2.0,[],...
-                      'window_overlap',1.0,[],...
-                      'number_bins',18,[],...
-                      'varlabel','V',[],...
-                   }, false);
-
 if ~isfield(spec,'entities') && isfield(spec,'cells')
   spec.entities=spec.cells;
 elseif ~isfield(spec,'entities') && isfield(spec,'nodes')
@@ -270,7 +258,7 @@ Fs = fix(data(1).sfreq);
 
 for pop=1:npop
   labels = {data(pop).sensor_info.label};
-  var = find(~cellfun(@isempty,regexp(labels,['_' parms.varlabel '$'])),1,'first');
+  var = find(~cellfun(@isempty,regexp(labels,['_' options.varlabel '$'])),1,'first');
   if spec.entities(pop).multiplicity <= data(pop).epochs.num_trials
     n = spec.entities(pop).multiplicity;
   else
@@ -286,8 +274,8 @@ for pop=1:npop
   try
     %% Filter the data
     % Note that `slow/fast_data` are thus TIMESERIES objects, not regular arrays.
-    slow_data = idealfilter(timeseries(dat), [parms.slow_freq_range(1)/(Fs/2.0), parms.slow_freq_range(2)/(Fs/2.0)], 'pass');
-    fast_data = idealfilter(timeseries(dat), [parms.fast_freq_range(1)/(Fs/2.0), parms.fast_freq_range(2)/(Fs/2.0)], 'pass');
+    slow_data = idealfilter(timeseries(dat), [options.slow_freq_range(1)/(Fs/2.0), options.slow_freq_range(2)/(Fs/2.0)], 'pass');
+    fast_data = idealfilter(timeseries(dat), [options.fast_freq_range(1)/(Fs/2.0), options.fast_freq_range(2)/(Fs/2.0)], 'pass');
 
     % HERE is probably where you'd want to use any of the available PAC
     % libraries, like the Eden/Kramer GLMCFC, since the signal has been
@@ -308,8 +296,8 @@ for pop=1:npop
     % Compute indices
     number_amp = size(amp,1);
     number_trials = size(amp,2);
-    number_windows = ceil(parms.window_length*Fs);
-    number_overlaps = ceil(parms.window_overlap*Fs);
+    number_windows = ceil(options.window_length*Fs);
+    number_overlaps = ceil(options.window_overlap*Fs);
     idx = bsxfun(@plus, (1:number_windows)', 1+(0:(fix((number_amp-number_overlaps)/(number_windows-number_overlaps))-1))*(number_windows-number_overlaps))-1;
 
     % Initialize the main data objects
@@ -332,22 +320,22 @@ for pop=1:npop
         %
         %    https://github.com/cineguerrilha/Neurodynamics
         %
-        phi_bin_beginnings = zeros(1,parms.number_bins); % this variable will get the beginning (not the center) of each bin (in rads)
-        bin_size = 2*pi/parms.number_bins;
-        for j=1:parms.number_bins
+        phi_bin_beginnings = zeros(1,options.number_bins); % this variable will get the beginning (not the center) of each bin (in rads)
+        bin_size = 2*pi/options.number_bins;
+        for j=1:options.number_bins
             phi_bin_beginnings(j) = -pi+(j-1)*bin_size;
         end
 
         % Now we compute the mean amplitude in each phase:
-        amp_means = zeros(1,parms.number_bins);
-        for j=1:parms.number_bins
+        amp_means = zeros(1,options.number_bins);
+        for j=1:options.number_bins
             phi_indices = find((phi_window >= phi_bin_beginnings(j)) & (phi_window < phi_bin_beginnings(j)+bin_size));
             amp_means(j) = mean(amp_window(phi_indices));
         end
         modulogram_matrix = [modulogram_matrix, (amp_means/sum(amp_means))'];
 
         % Quantify the amount of amp modulation by means of a normalized entropy index (Tort et al PNAS 2008):
-        modulation_index=(log(parms.number_bins)-(-sum((amp_means/sum(amp_means)).*log((amp_means/sum(amp_means))))))/log(parms.number_bins);
+        modulation_index=(log(options.number_bins)-(-sum((amp_means/sum(amp_means)).*log((amp_means/sum(amp_means))))))/log(options.number_bins);
         modulation_index_timeseries = [modulation_index_timeseries, modulation_index];
 
         % % Debug, for mid-function plotting:
