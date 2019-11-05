@@ -131,7 +131,7 @@ for v=1:length(options.variable)
     %% [tmpPxx,f] = pwelch(X,NFFT,[],NFFT,Fs); % calculate power
 
     fprintf('About to start running coupling analysis\n')
-    [pacmat, freqvec_ph, freqvec_amp, pmat, pac_angles, comodulograms] = ...
+    [pacmat, freqvec_ph, freqvec_amp, pmat, pac_angles, comodulograms, modulation_indices] = ...
     find_pac_shf(X, Fs, options.measure, X, ...
     options.phase_freqs, options.ampl_freqs, options.plt,...
     options.waitbar, options.width, options.nfft, ...
@@ -153,6 +153,7 @@ for v=1:length(options.variable)
     data.([var '_Coupling_MUA' options.output_suffix]).amplitudes=pacmat;
     data.([var '_Coupling_MUA' options.output_suffix]).angles=pac_angles;
     data.([var '_Coupling_MUA' options.output_suffix]).comodulograms=comodulograms;
+    data.([var '_Coupling_MUA' options.output_suffix]).modulation_indices=modulation_indices;
     data.([var '_Coupling_MUA' options.output_suffix]).ampl_freq_axis=freqvec_amp;
     data.([var '_Coupling_MUA' options.output_suffix]).ph_freq_axis=freqvec_ph;
 % 

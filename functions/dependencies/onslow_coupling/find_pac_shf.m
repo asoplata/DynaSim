@@ -1,4 +1,4 @@
-function [pacmat, freqvec_ph, freqvec_amp, pmat, pac_angles, comodulograms] = find_pac_shf (sig_pac, Fs, measure, ...
+function [pacmat, freqvec_ph, freqvec_amp, pmat, pac_angles, comodulograms, modulation_indices] = find_pac_shf (sig_pac, Fs, measure, ...
 sig_mod, ph_freq_vec, amp_freq_vec, plt, waitbar, width, nfft, num_shf, calc_comodulograms, alpha,...
 dataname, sig_pac_name, sig_mod_name)
 % This function calculates a matrix of PAC values using either the ESC, MI 
@@ -134,7 +134,7 @@ end
 
 if strcmp(measure, 'mi')
     fprintf('About to analyze filtered signals\n')
-    [pacmat, freqvec_ph, freqvec_amp, pac_angles, comodulograms] = find_pac_nofilt(filt_sig_pac, Fs, measure, filt_sig_mod, ph_freq_vec, amp_freq_vec, 'n', waitbar, calc_comodulograms);
+    [pacmat, freqvec_ph, freqvec_amp, pac_angles, comodulograms, modulation_indices] = find_pac_nofilt(filt_sig_pac, Fs, measure, filt_sig_mod, ph_freq_vec, amp_freq_vec, 'n', waitbar, calc_comodulograms);
 end
 
 if strcmp(measure, 'cfc')

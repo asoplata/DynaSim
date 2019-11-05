@@ -1,4 +1,4 @@
- function [mival, mi_angle, mi_comodulogram] = mi_measure(phase_sig, amp_sig, calc_comodulograms)
+ function [mival, mi_angle, mi_comodulogram, modulation_index] = mi_measure(phase_sig, amp_sig, calc_comodulograms)
 % function mival = mi_measure(phase_sig, amp_sig)
 %
 % Returns a value for the MI measure calculated between two signals.
@@ -43,14 +43,14 @@ for count = 1:num_trials
         parms.window_overlap = 1.0;
         parms.number_bins = 18;
         Fs = 1000/0.01 / 10; % don't forget downsampling
-       %% Get angle and amplitude from the respective signals via Hilbert Transform
+        %% Get angle and amplitude from the respective signals via Hilbert Transform
         % Kramer's GLMCFC code is espcially concise/informative. Note the '.Data'
         %     phi = angle(hilbert(slow_data.Data));
         %     amp = abs(hilbert(fast_data.Data));
         phi = phase_sig;
         amp = amp_sig;
 
-       %% Construct windows across the time series
+        %% Construct windows across the time series
         %    Adapted & taken from Angela Onslow's 'pac_code_best/window_data.m' of
         %    her MATLAB Toolbox for Estimating Phase-Amplitude Coupling from
         %
@@ -66,7 +66,7 @@ for count = 1:num_trials
         % Initialize the main data objects
         modulation_index_timeseries = [];
         mi_comodulogram = [];
-       %% Loop over sliding windows
+        %% Loop over sliding windows
         for k=1:size(idx,2)
             amp_window = [];
             phi_window = [];
@@ -75,8 +75,8 @@ for count = 1:num_trials
                 amp_window = [amp_window, amp(idx(:,k),j)];
                 phi_window = [phi_window, phi(idx(:,k),j)];
             end
-           %% Bin the faster frequency's amplitude in the slower's phase bins
-            %    Adapted & taken from Adriano Tort's
+            %% Bin the faster frequency's amplitude in the slower's phase bins
+            %    Adapted & taken from Richardson Leao's copy of Adriano Tort's
             %    'Neurodynamics-master/16ch/Comodulation/ModIndex_v1.m' of the
             %    'Neurodynamics-Toolbox' repo on Github, at
             %
@@ -88,7 +88,7 @@ for count = 1:num_trials
                 phi_bin_beginnings(j) = -pi+(j-1)*bin_size;
             end
 
-            % Now we compute the mean amplitude in each phase:
+            % Now we compute the mean amplicomodtude in each phase:
             amp_means = zeros(1,parms.number_bins);
             for j=1:parms.number_bins
                 phi_indices = find((phi_window >= phi_bin_beginnings(j)) & (phi_window < phi_bin_beginnings(j)+bin_size));
@@ -112,6 +112,36 @@ for count = 1:num_trials
         end
     else
         mi_comodulogram = 0;
+        %% Bin the faster frequency's amplitude in the slower's phase bins
+        %    Adapted & taken from Richardson Leao's copy of Adriano Tort's
+        %    'Neurodynamics-master/16ch/Comodulation/ModIndex_v1.m' of the
+        %    'Neurodynamics-Toolbox' repo on Github, at
+        %
+        %    https://github.com/cineguerrilha/Neurodynamics
+        %
+        nbins = 18;
+        phase_bin_beginnings = zeros(1,nbins); % this variable will get the beginning (not the center) of each bin (in rads)
+        bin_size = 2*pi/nbins;
+        for j=1:nbins
+            phase_bin_beginnings(j) = -pi+(j-1)*bin_size;
+        end
+
+        % Now we compute the mean amplitude in each phase:
+        amp_means = zeros(1,nbins);
+        for j=1:nbins
+            phase_indices = find((phase_sig >= phase_bin_beginnings(j)) & (phase_sig < phase_bin_beginnings(j)+bin_size));
+            amp_means(j) = mean(amp_sig(phase_indices));
+        end
+        
+        mi_comodulogram = (amp_means/sum(amp_means))';
+    
+        % Quantify the amount of amp modulation by means of a normalized entropy index (Tort et al PNAS 2008):
+        % Note: If the MI is NaN, then likely one of the amp_means is a NaN
+        % owing to one of the 18 phase bins not being detected at all; this
+        % clearly indicates that our SWO-filtered phase signal is missing
+        % at least 1/18th of the cycle, and therefore this
+        % particularly-filtered signal should probably be thrown out.
+        modulation_index=(log(nbins)-(-sum((amp_means/sum(amp_means)).*log((amp_means/sum(amp_means))))))/log(nbins);
     end
 end
 

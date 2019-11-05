@@ -1,4 +1,4 @@
-function [pacmat, freqvec_ph, freqvec_amp, pac_angles, comodulograms] = find_pac_nofilt (sig_pac, Fs,...
+function [pacmat, freqvec_ph, freqvec_amp, pac_angles, comodulograms, modulation_indices] = find_pac_nofilt (sig_pac, Fs,...
     measure, sig_mod, ph_freq_vec, amp_freq_vec, plt, waitbar, calc_comodulograms, width, nfft,...
         dataname, sig_pac_name, sig_mod_name)
 %function [pacmat, freqvec_ph, freqvec_amp] = find_pac_nofilt (sig_pac, Fs,...
@@ -124,6 +124,7 @@ if (strcmp(measure, 'esc') || strcmp(measure, 'mi'))
 pacmat = zeros(ybins, xbins);
 pac_angles = zeros(ybins, xbins);
 comodulograms = cell(ybins, xbins);
+modulation_indices = zeros(ybins, xbins);
     
     for i = 1:ybins
         for j = 1:xbins
@@ -139,7 +140,7 @@ comodulograms = cell(ybins, xbins);
             
             if strcmp(measure, 'mi')
                 % Pacmat full of raw mi values, not yet normalized
-                [pacmat(i,j), pac_angles(i,j), comodulograms{i,j}] = mi_measure(sig_mod{1,j}, ...
+                [pacmat(i,j), pac_angles(i,j), comodulograms{i,j}, modulation_indices(i,j)] = mi_measure(sig_mod{1,j}, ...
                     sig_pac{1,i}, calc_comodulograms);
             end
             
