@@ -150,6 +150,9 @@ for v=1:length(options.variable)
     % organization scheme:
     % data.VARIABLE_Power_SUA.(Pxx,PeakFreq,PeakArea,frequency)
     % data.VARIABLE_Power_MUA.(Pxx,PeakFreq,PeakArea,frequency)
+    % Despite me erroneously calling the struct 'amplitudes', the values
+    % are NOT the raw/mean amplitudes of the signal but instead the values
+    % of the Canolty 2006 Modulation Index measure. Sorry!
     data.([var '_Coupling_MUA' options.output_suffix]).amplitudes=pacmat;
     data.([var '_Coupling_MUA' options.output_suffix]).angles=pac_angles;
     data.([var '_Coupling_MUA' options.output_suffix]).comodulograms=comodulograms;
