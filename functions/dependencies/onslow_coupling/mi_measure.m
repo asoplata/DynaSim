@@ -37,11 +37,11 @@ for count = 1:num_trials
     
     if calc_comodulograms
         % AES
-        %         parms.window_length = 2.0;
-        parms.window_length = 3.0;
+        parms.window_length = 2.0;
+%         parms.window_length = 3.0;
         
         parms.window_overlap = 1.0;
-        parms.number_bins = 18;
+        parms.number_bins = 12;
         Fs = 1000/0.01 / 10; % don't forget downsampling
         %% Get angle and amplitude from the respective signals via Hilbert Transform
         % Kramer's GLMCFC code is espcially concise/informative. Note the '.Data'
